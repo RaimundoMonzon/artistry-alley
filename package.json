@@ -1,0 +1,17 @@
+{
+  "name": "portfolio-web",
+  "version": "1.0.0",
+  "description": "Portfolio web enfocado a ilustraciones/animaciones | Programación 3 - 3.609 UTN-INSPT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "node --watch index",
+    "start": "node index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  }
+}
