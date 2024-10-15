@@ -5,7 +5,9 @@ const validarRol = (req, resp, next) => {
     next();
 }
 
-module.exports = {
+
+
+export default {
     validarJWT,
     validarRol
 }
