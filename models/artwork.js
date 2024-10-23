@@ -1,11 +1,11 @@
-const arrayGalleryWorks = require('../data/gallery_work');
+const arrayArtworks = require('../data/artwork');
 
 const getTodos = () => {
-    return arrayGalleryWorks;
+    return arrayArtworks;
 }
 
 const getById = (id) => {
-    return arrayGalleryWorks.find( work => work._id === id );
+    return arrayArtworks.find( work => work._id === id );
 }
 
 const deleteById = (id) => {

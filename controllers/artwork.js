@@ -1,14 +1,14 @@
-const gallery_workModel = require("../models/gallery_work");
+const artworkModel = require("../models/artwork");
 
 const getTodos = (req, res) => {    
-    res.json( gallery_workModel.getTodos() );
+    res.json( artworkModel.getTodos() );
 }
 
 const getByID = (req, res) => {
     let {id} = req.params;
     const idEntero = parseInt(id);
 
-    const work = gallery_workModel.getByID(idEntero);
+    const work = artworkModel.getByID(idEntero);
 
     //res.send(`El id es ${id}`)
     if (work) {
@@ -25,7 +25,7 @@ const deleteById = (req, res) => {
     let {id} = req.params;
     const idEntero = parseInt(id);
 
-    const work = gallery_workModel.deleteById(idEntero);
+    const work = artworkModel.deleteById(idEntero);
     if (work) {
         res.json(work);
     } else {
@@ -40,7 +40,7 @@ const updateById = (req, res) => {
     let {id} = req.params;
     const idEntero = parseInt(id);
 
-    const work = gallery_workModel.updateById(idEntero, req.body);
+    const work = artworkModel.updateById(idEntero, req.body);
     if (work) {
         res.json(work);
     } else {
@@ -52,7 +52,7 @@ const updateById = (req, res) => {
 }
 
 const add = (req, res) => {
-    const work = gallery_workModel.add(req.body);
+    const work = artworkModel.add(req.body);
 
     if (work) {
         res.json(work);

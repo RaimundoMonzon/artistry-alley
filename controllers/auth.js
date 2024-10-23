@@ -1,15 +1,18 @@
+import jwt from 'jsonwebtoken';
+
 const login = async (req, res) => {
+
     const userEsperado = {
         _id: 1,
         username: "Raicist",
-        clave: 80085
+        password: 80085
     }
 
-    const {_id, nombre, pass} = req.body;
+    const {_id, nombre, pass} = userEsperado;
 
     try {
         if(user === nombre) {
-            if(clave === pass) {
+            if(password === pass) {
                 const token = await generateJWT(_id);
                 res.json({
                     usuario,
@@ -18,7 +21,7 @@ const login = async (req, res) => {
             }
         }
     } catch {
-        console.log("ERORR");
+        console.log("Error al generar el Token.");
     }
     
 }
@@ -42,6 +45,4 @@ const generateJWT = (user) => {
     })
 }
 
-module.exports = {
-    login
-}
+export default login;
