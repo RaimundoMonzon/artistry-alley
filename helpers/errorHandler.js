@@ -25,6 +25,6 @@ const createErrorFactory = function (name, statusCode) {
   };
 };
 
-export const ValidationError = createErrorFactory("ValidationError", 400);
-export const NotFound = createErrorFactory("NotFound", 404);
-export const Unauthorized = createErrorFactory("Unauthorized", 401);
+export const ValidationError = createErrorFactory("ValidationError", 400); // Indica que el servidor no puede procesar la request porque la request no es válida.
+export const NotFound = createErrorFactory("NotFound", 404); // Indica que la request no se puede completar porque no se encuentra el recurso.
+export const Unauthorized = createErrorFactory("Unauthorized", 401); // Indica que la request no se puede completar porque no tiene credenciales.

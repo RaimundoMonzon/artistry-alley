@@ -5,8 +5,9 @@ const messages = {
       // Mensajes bonitos para los usuarios.
       loginSuccess: "¡Buenos dias estrellita! ¡El mundo te dice hola!", // ¡Bienvenido! ¡Has iniciado sesión!
       registerSuccess: "¡Bienvenido! ¡Has registrado!",
+      deleteUserSuccess: "¡Hasta la vista baby!",
 
-      // Mensajes de usuario
+      // Mensajes de Error de Usuario
       invalidCredentials: "Usuario o Contraseña no validos",
       unauthorized: "Rechazado, como digo, fracasado", // Acceso denegado.
       notSufficientPermissions: "Viste, te falta cancha para hacer esto", // No tiene suficientes permisos para hacer esto.

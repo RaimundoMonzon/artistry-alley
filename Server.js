@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"; // Rutas de autenticación.
+import userRoutes from "./routes/user.js"; // Rutas de usuario.
 
 class Server {
 
@@ -20,6 +21,7 @@ class Server {
 
     cargarRutas() {
         this.app.use("/api/auth", authRoutes);
+        this.app.use("/api/user", userRoutes);
     }
 
     cargarMiddlewares () {

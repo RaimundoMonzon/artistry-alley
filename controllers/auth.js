@@ -23,5 +23,3 @@ export class AuthController {
         res.status(200).json({message: msg.loginSuccess, user, token});
     }
 }
-
-export default AuthController();

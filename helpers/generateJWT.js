@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { SECRETKEY, TOKEN_TIMEOUT } from "./config";
 
 export const generarJWT = (user) => {
