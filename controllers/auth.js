@@ -1,48 +1,27 @@
-import jwt from 'jsonwebtoken';
+import { UserService } from "../services/user";
+import {languageByLang as msg} from "../helpers/messages.js";
 
-const login = async (req, res) => {
+const userService = new UserService();
 
-    const userEsperado = {
-        _id: 1,
-        username: "Raicist",
-        password: 80085
+// Es recomendable usar try/catch para manejar excepciones. Por ahora, no lo he hecho.
+
+export class AuthController {
+
+    // Registrar un usuario.
+    async registerUser(req, res) {
+        const input = req.body;
+        const user = await userService.registerUser({ input });
+        // No hay Try/Catch, porque si hay un error, el UserService lanza una excepción.
+        res.status(201).json({message: msg.registerSuccess, user});
     }
 
-    const {_id, nombre, pass} = userEsperado;
-
-    try {
-        if(user === nombre) {
-            if(password === pass) {
-                const token = await generateJWT(_id);
-                res.json({
-                    usuario,
-                    token
-                })
-            }
-        }
-    } catch {
-        console.log("Error al generar el Token.");
+    // Login de un usuario.
+    async loginUser(req, res) {
+        const input = req.body;
+        const { user, token } = await userService.loginUser({ input });
+        // No hay Try/Catch, porque si hay un error, el UserService lanza una excepción.
+        res.status(200).json({message: msg.loginSuccess, user, token});
     }
-    
 }
 
-const generateJWT = (user) => {
-    return new Promise((resolve, reject) => {
-        const payload = {
-            id: user?.id,
-            nombre: user?.nombre
-        };
-
-        generateJWT.sign( payload, process.env.SECRETKEY, {
-            expiresIn: 4,
-        }, (err, token) => {
-            if(err){
-                reject("Rechazo total");
-            } else {
-                resolve(token);
-            }
-        })
-    })
-}
-
-export default login;
+export default AuthController();

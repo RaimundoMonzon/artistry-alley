@@ -5,14 +5,12 @@ export const generarJWT = (user) => {
     return new Promise((resolve, reject) => {
 
         const payload = {
-            id: user.id
+            id: user._id,
+            rol: user.rol
         };
 
-        jwt.sign(payload, SECRETKEY, {
-            expiresIn: TOKEN_TIMEOUT
-        }, (err, token) => {
+        jwt.sign(payload, SECRETKEY, { expiresIn: TOKEN_TIMEOUT }, (err, token) => {
             if (err) {
-                console.log(err);
                 reject('No se pudo generar el token')
             } else {
                 resolve(token);

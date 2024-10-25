@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import { messagesByLang as msg } from "../helpers/messages.js";
@@ -23,8 +24,22 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "user"],
       default: "user",
     },
+    artworks: [
+      {
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artwork", required: true },
+      },
+    ],
+    exhibitions: [
+      {
+        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Exhibition", required: true },
+      },
+    ],
+    cart: {
+      type: mongoose.Schema.Types.ObjectId, ref: "Cart", required: true,
+    }
   },
   {
+    collection: "users", // Nombre de la colección en la base de datos.
     versionKey: false, // Esto oculta el campo __v
     timestamps: true,
   },

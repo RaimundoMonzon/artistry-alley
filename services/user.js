@@ -1,43 +1,83 @@
 import { User } from "../models/user.js"
+import { generateJWT } from "../helpers/generateJWT.js";
+import bcrypt from "bcrypt";
 import { messagesByLang as msg } from "../helpers/messages.js";
-import { NotFound } from "../helpers/errorHandler.js";
+import { NotFound, ValidationError } from "../helpers/errorHandler.js";
 
 export class UserService {
-    
-    constructor () {
+
+    constructor() {
         this.model = User;
     }
 
+    // CRUD Basico replicable.
     async getAll() {
         return this.model.find({});
     }
 
-    async getById({id}) {
-        const user = await this.model.findById(id);
-        if(!user) {
+    // Obtiene un usuario por su ID y populatiza el objeto con sus artworks y exhibitions.
+    async getById({ id }) {
+        const user = await this.model.findById(id)
+        .populate("artworks artworks.categories")
+        .populate("exhibitions exhibitions.featuredArtworks")
+        .populate("cart");
+
+        if (!user) {
             throw new NotFound(msg.userNotFound);
         }
         return user;
     }
 
-    async create({input}) {
+    async create({ input }) {
         const user = new this.model(input);
         return user.save();
     }
 
-    async update({id, input}) {
-        const user = await this.model.findByIdAndUpdate(id, input, {new: true});
-        if(!user) {
+    async update({ id, input }) {
+        const user = await this.model.findByIdAndUpdate(id, input, { new: true });
+        if (!user) {
             throw new NotFound(msg.userNotFound);
         }
         return user;
     }
 
-    async delete({id}) {
+    async delete({ id }) {
         const user = await this.model.findByIdAndDelete(id);
-        if(!user) {
+        if (!user) {
             throw new NotFound(msg.userNotFound);
         }
         return user;
+    }
+
+    async registerUser({ input }) {
+        // Chequear si el usuario ya existe.
+        const existingUser = await this.model.findOne({ username: input.username });
+        if (existingUser) {
+            throw new ValidationError(msg.userAlreadyExists);
+        }
+        // Crear el usuario.
+        const newUser = new this.model(input);
+        // Guardar el usuario, y retornar el objeto. Si hay un error, lanzar una excepción.
+        try {
+            return await newUser.save();
+        } catch (error) {
+            throw new ValidationError("Error al crear el usuario");
+        }
+    }
+
+    async loginUser({ input }) {
+        // Chequear si el usuario existe.
+        const user = await this.model.findOne({ username: input.username });
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        // Chequear si la contraseña es correcta.
+        const isPasswordCorrect = await bcrypt.compare(input.password, user.password);
+        if (!isPasswordCorrect) {
+            throw new ValidationError(msg.invalidCredentials); // Error: Usuario o contraseña incorrectos.
+        }
+        // Si es valido, crear el token y se loguea.
+        const token = await generateJWT(user);
+        return { user, token }
     }
 }
