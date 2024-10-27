@@ -1,11 +1,10 @@
-const express = require('express');
+import { Router } from 'express';
+import { getTodos, getByID } from "../controller/artwork";
+import { validarJWT, validarRol } from "../middlewares/validations";
 
-const router = express.Router();
-
-const {getTodos, getByID} = require("../controller/artwork")
-const {validarJWT, validarRol} = require("../middlewares/validations")
+const router = Router();
 
 router.get("/", getTodos)
 router.get("/:id", getByID)
 
-module.exports = router;
+export default router;

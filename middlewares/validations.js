@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { SECRETKEY } from "../helpers/config";
-import { languageByLang as msg } from "../helpers/messages";
-import { handleError, Unauthorized } from "../helpers/errorHandler";
+import { SECRETKEY } from "../helpers/config.js";
+import { messagesByLang as msg } from "../helpers/messages.js";
+import { handleError, Unauthorized } from "../helpers/errorHandler.js";
 
 export const validateToken = async (req, res, next) => {
 
@@ -20,4 +20,16 @@ export const validateToken = async (req, res, next) => {
         req.user = decoded;
         next();
     });
+};
+
+// A chequear.
+export const validateRol = async (req, res, next) => {
+
+    const rol = req.user.rol;
+
+    if (rol !== "admin") {
+        return handleError(new Unauthorized(msg.notSufficientPermissions), res);
+    }
+
+    next();
 };

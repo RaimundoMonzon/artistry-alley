@@ -2,20 +2,21 @@ import express, { json } from "express";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"; // Rutas de autenticación.
 import userRoutes from "./routes/user.js"; // Rutas de usuario.
-
+import { PORT, DB_USER, SECRETKEY } from "./helpers/config.js";
+ 
 class Server {
 
     constructor() {
-        this.port = process.env.PORT;
+        this.port = PORT;
         this.app = express();
+        this.conectarBD();
         this.cargarMiddlewares();
         this.cargarRutas();
-        this.conectarBD();
     }
 
     listen() {
         this.app.listen(this.port,() => {
-            console.log("Servidor en marcha.")
+            console.log("Servidor en marcha en el puerto: " + this.port);
         })
     }
 
@@ -29,8 +30,8 @@ class Server {
     }
 
     async conectarBD() {
-        const user = process.env.DB_USER;
-        const password = process.env.SECRETKEY;
+        const user = DB_USER;
+        const password = SECRETKEY;
         const mongoUri =  `mongodb+srv://${user}:${password}@cluster0.pssra.mongodb.net/portafolioWeb?retryWrites=true&w=majority&appName=Cluster0`
 
         try {

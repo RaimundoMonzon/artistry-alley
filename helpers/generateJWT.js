@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { SECRETKEY, TOKEN_TIMEOUT } from "./config";
+import { SECRETKEY, TOKEN_TIMEOUT } from "./config.js";
 
-export const generarJWT = (user) => {
+export const generateJWT = (user) => {
 
     return new Promise((resolve, reject) => {
 

@@ -24,6 +24,15 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "user"],
       default: "user",
     },
+    email: {
+      type: String,
+      required: [true, msg.requiredField()],
+      unique: true,
+      match: [
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Email inválido",
+      ],
+    },
     artworks: [
       {
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artwork", required: true },
@@ -35,7 +44,7 @@ const userSchema = new mongoose.Schema(
       },
     ],
     cart: {
-      type: mongoose.Schema.Types.ObjectId, ref: "Cart", required: true,
+      type: mongoose.Schema.Types.ObjectId, ref: "Cart",
     }
   },
   {

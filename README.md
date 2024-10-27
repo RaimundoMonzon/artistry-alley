@@ -3,6 +3,8 @@ Portfolio web enfocado a ilustraciones/animaciones | Programación 3 - 3.609 UTN
 npm install mongoose
 npm install mongodb salteado
 npm install express
+npm i bcrypt
+npm i jsonwebtoken
 
 -- Steps to Add Content to the API --
 Define the Schema:

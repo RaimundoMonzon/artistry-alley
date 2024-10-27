@@ -1,21 +1,22 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.js';
+import { validateToken, validateRol } from "../middlewares/validations.js";
 
 const router = Router();
 
 // Obtener todos los usuarios.
-router.get('/', UserController.getAllUsers);
+router.get('/', [validateToken], UserController.getAllUsers);
 
 // Obtener un usuario.
-router.get('/:id', UserController.getUser);
+router.get('/:id', [validateToken], UserController.getUser);
 
 // Crear un usuario.
-router.post('/', UserController.createUser);
+router.post('/', [validateToken], UserController.createUser);
 
 // Actualizar un usuario.
-router.put('/:id', UserController.updateUser);
+router.put('/:id', [validateToken], UserController.updateUser);
 
 // Eliminar un usuario.
-router.delete('/:id', UserController.deleteUser);
+router.delete('/:id', [validateToken], UserController.deleteUser);
 
 export default router;

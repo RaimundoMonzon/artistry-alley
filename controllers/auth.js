@@ -1,25 +1,30 @@
-import { UserService } from "../services/user";
-import {languageByLang as msg} from "../helpers/messages.js";
+import { UserService } from "../services/user.js";
+import {messagesByLang as msg} from "../helpers/messages.js";
+import { handleError } from "../helpers/errorHandler.js";
 
 const userService = new UserService();
-
-// Es recomendable usar try/catch para manejar excepciones. Por ahora, no lo he hecho.
 
 export class AuthController {
 
     // Registrar un usuario.
-    async registerUser(req, res) {
-        const input = req.body;
-        const user = await userService.registerUser({ input });
-        // No hay Try/Catch, porque si hay un error, el UserService lanza una excepción.
-        res.status(201).json({message: msg.registerSuccess, user});
+    static async registerUser(req, res) {
+        try {
+            const {body} = req; // Esta es una manera de acceder a los datos de la petición.
+            const user = await userService.registerUser({ input: body });
+            res.status(201).json({message: msg.registerSuccess, user});
+        } catch (error) {
+            handleError(error, res);
+        }
     }
 
     // Login de un usuario.
-    async loginUser(req, res) {
-        const input = req.body;
-        const { user, token } = await userService.loginUser({ input });
-        // No hay Try/Catch, porque si hay un error, el UserService lanza una excepción.
-        res.status(200).json({message: msg.loginSuccess, user, token});
+    static async loginUser(req, res) {
+        try {
+            const input = req.body; // Esta es otra manera de acceder a los datos de la petición.
+            const { user, token } = await userService.loginUser({ input });
+            res.status(200).json({message: msg.loginSuccess, user, token});
+        } catch (error) {
+            handleError(error, res);
+        }
     }
 }

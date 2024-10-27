@@ -1,8 +1,5 @@
-import Server from "./Server";
+import Server from "./Server.js";
 
 const server = new Server();
 
 server.listen();
-server.cargarMiddlewares();
-server.cargarRutas();
-server.conectarBD();
