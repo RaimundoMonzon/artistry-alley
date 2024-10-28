@@ -59,7 +59,6 @@ export class UserService {
         }
         // Crear el usuario.
         const newUser = new this.model(input);
-        console.log("User: " + newUser);
         // Guardar el usuario, y retornar el objeto. Si hay un error, lanzar una excepción.
         try {
             return await newUser.save();

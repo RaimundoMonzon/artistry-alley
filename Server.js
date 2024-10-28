@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js"; // Rutas de autenticación.
 import userRoutes from "./routes/user.js"; // Rutas de usuario.
 import cartRoutes from "./routes/cart.js"; // Rutas de carrito.
+import artworkRoutes from "./routes/artwork.js"; // Rutas de obras.
 import { PORT, DB_USER, SECRETKEY } from "./helpers/config.js";
  
 class Server {
@@ -25,6 +26,7 @@ class Server {
         this.app.use("/api/auth", authRoutes);
         this.app.use("/api/user", userRoutes);
         this.app.use("/api/cart", cartRoutes);
+        this.app.use("/api/artwork", artworkRoutes);
     }
 
     cargarMiddlewares () {

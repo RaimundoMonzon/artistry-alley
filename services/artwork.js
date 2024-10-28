@@ -1,32 +1,51 @@
+import { Artwork } from "../models/artwork.js";
+import { ValidationError, NotFound } from "../helpers/errorHandler.js";
+import { messagesByLang as msg } from "../helpers/messages.js";
 
-// Refactorizar a imagen del userService
+export class ArtworkService {
 
-const arrayArtworks = require('../models/artwork');
+    constructor() {
+        this.model = Artwork;
+    }
 
-const getTodos = () => {
-    return arrayArtworks;
-}
+    // Obtener todos los artworks.
+    async getAll() {
+        return this.model.find({});
+    }
 
-const getById = (id) => {
-    return arrayArtworks.find( work => work._id === id );
-}
+    // Obtener un artwork por su ID y populatiza el objeto con sus categorias.
+    async getById({ id }) {
+        const artwork = await this.model.findById(id)
+        .populate("categories")
+        
+        if (!artwork) {
+            throw new NotFound(msg.artworkNotFound);
+        }
+        return artwork;
+    }
 
-const deleteById = (id) => {
-    // TODO...
-}
+    async create({ input }) {
+        const artwork = new this.model(input);
+        try {
+            return await artwork.save();
+        } catch (error) {
+            throw new ValidationError("Error al crear la obra");
+        }
+    }
 
-const updateById = (id) => {
-    // TODO...
-}
+    async update({ id, input }) {
+        const artwork = await this.model.findByIdAndUpdate(id, input, { new: true });
+        if (!artwork) {
+            throw new NotFound(msg.artworkNotFound);
+        }
+        return artwork;
+    }
 
-const add = (work) => {
-    // TODO...
-}
+    async delete({ id }) {
+        const artwork = await this.model.findByIdAndDelete(id);
+        if (!artwork) {
+            throw new ValidationError(msg.artworkNotFound);
+        }
+    }
 
-module.exports = {
-    getTodos,
-    getById,
-    deleteById,
-    updateById,
-    add
 }

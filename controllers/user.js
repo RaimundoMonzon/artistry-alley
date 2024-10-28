@@ -27,7 +27,7 @@ export class UserController {
     static async createUser(req, res) {
         try {
             const user = await userService.create({input: req.body});
-            res.status(201).json(user); // 201 Solicitud exitosa que indica que se ha creado uno o mas recursos.
+            res.status(201).json(user);
         } catch (error) {
             handleError(error, res);
         }

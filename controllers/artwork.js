@@ -1,76 +1,37 @@
-const artworkModel = require("../models/artwork");
+import { ArtworkService } from "../services/artwork.js";
 
-const getTodos = (req, res) => {    
-    res.json( artworkModel.getTodos() );
-}
+const artworkService = new ArtworkService();
 
-const getByID = (req, res) => {
-    let {id} = req.params;
-    const idEntero = parseInt(id);
+export class ArtworkController {
 
-    const work = artworkModel.getByID(idEntero);
-
-    //res.send(`El id es ${id}`)
-    if (work) {
-        res.json(work);
-    } else {
-        res.status(404).json({
-            id,
-            encontrado: false
-        });
+    // Obtener todos los artworks.  
+    static async getAllArtworks(req, res) {
+        const artworks = await artworkService.getAll();
+        res.status(200).json(artworks);
     }
-}
 
-const deleteById = (req, res) => {
-    let {id} = req.params;
-    const idEntero = parseInt(id);
-
-    const work = artworkModel.deleteById(idEntero);
-    if (work) {
-        res.json(work);
-    } else {
-        res.status(404).json({
-            id,
-            encontrado: false
-        });
+    // Obtener un artwork.
+    static async getArtwork(req, res) {
+        const { id } = req.params;
+        const artwork = await artworkService.getById({ id });
+        res.status(200).json(artwork);
     }
-}
 
-const updateById = (req, res) => {
-    let {id} = req.params;
-    const idEntero = parseInt(id);
-
-    const work = artworkModel.updateById(idEntero, req.body);
-    if (work) {
-        res.json(work);
-    } else {
-        res.status(404).json({
-            id,
-            encontrado: false
-        });
+    // Crear un artwork.
+    static async createArtwork(req, res) {
+        const artwork = await artworkService.create({ input: req.body });
+        res.status(201).json(artwork);
     }
-}
 
-const add = (req, res) => {
-    const work = artworkModel.add(req.body);
-
-    if (work) {
-        res.json(work);
-    } else {
-        res.status(404).json({
-            id,            
-            encontrado: false
-        });
+    // Actualizar un artwork.
+    static async updateArtwork(req, res) {
+        const artwork = await artworkService.update({ id: req.params.id, input: req.body });
+        res.status(200).json(artwork);
     }
-}
 
-
-
-
-module.exports = {
-    getTodos,
-    getByID,
-    deleteById,
-    updateById,
-    add
+    // Eliminar un artwork.
+    static async deleteArtwork(req, res) {
+        const artwork = await artworkService.delete({ id: req.params.id });
+        res.status(200).json({ message: msg.deleteUserSuccess });
+    }
 }

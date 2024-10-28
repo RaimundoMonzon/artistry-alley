@@ -24,7 +24,7 @@ const artworkSchema = new mongoose.Schema(
         },
         price: {
             type: Number,
-            min: [1, msg.min(1)],
+            min: [1, msg.minLength(1)],
             trim: true,
             // Valida si el Articulo está o no en venta, y si es así, validar el precio.
             validate: {
