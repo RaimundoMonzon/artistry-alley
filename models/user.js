@@ -43,9 +43,6 @@ const userSchema = new mongoose.Schema(
         _id: { type: mongoose.Schema.Types.ObjectId, ref: "Exhibition", required: true },
       },
     ],
-    cart: {
-      type: mongoose.Schema.Types.ObjectId, ref: "Cart",
-    }
   },
   {
     collection: "users", // Nombre de la colección en la base de datos.

@@ -1,20 +1,17 @@
 import mongoose from "mongoose";
-import { messagesByLang as msg } from "../helpers/messages.js";
 
-const  cartSchema = new mongoose.Schema(
+const cartSchema = new mongoose.Schema(
     {
-        user: {
-            _id: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-            username : String,
-        },
         items: [
             {
                 _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artwork", required: true },
-                title : String,
-                price : Number,
+                title: String,
+                price: Number,
+                quantity: Number,
             },
         ], // Lista de items que se van a comprar.
-        totalPrice: {type: Number, required: true, default: 0}, // Precio total del carrito.
+        totalPrice: { type: Number, required: true, default: 0 },
+        createdAt: { type: Date, default: Date.now , expires: '4h'},
     },
     {
         collection: "carts", // Nombre de la colección en la base de datos.

@@ -20,8 +20,7 @@ export class UserService {
         const user = await this.model.findById(id)
         .populate("artworks")
         .populate("exhibitions")
-        .populate("cart");
-
+        
         if (!user) {
             throw new NotFound(msg.userNotFound);
         }
