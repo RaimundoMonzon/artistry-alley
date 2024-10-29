@@ -16,7 +16,7 @@ const cartSchema = new mongoose.Schema(
       },
     ], // Lista de items que se van a comprar.
     totalPrice: { type: Number, required: true, default: 0 },
-    createdAt: { type: Date, default: Date.now, expires: CART_TIMEOUT },
+    expireAt: { type: Date, default: Date.now, expires: CART_TIMEOUT },
   },
   {
     collection: "carts", // Nombre de la colección en la base de datos.
@@ -24,5 +24,7 @@ const cartSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+cartSchema.index({ expireAt: 1 });
 
 export const Cart = mongoose.model("Cart", cartSchema);

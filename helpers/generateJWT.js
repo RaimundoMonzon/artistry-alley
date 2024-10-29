@@ -26,10 +26,8 @@ export const generateCartToken = (cart) => {
     return new Promise((resolve, reject) => {
 
         const payload = {
-            cartId: cart._id,
-            exp: Math.floor(Date.now() / 1000) + CART_TIMEOUT
+            id: cart._id
         }
-
         jwt.sign(payload, SECRETKEY, { expiresIn: CART_TIMEOUT }, (err, token) => {
             if (err) {
                 reject('No se pudo generar el token del Carrito.')
