@@ -8,4 +8,5 @@ export const {
     DB_USER,
     LANGUAGE,
     TOKEN_TIMEOUT,
+    CART_TIMEOUT,
 } = process.env;

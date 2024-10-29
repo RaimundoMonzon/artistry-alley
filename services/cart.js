@@ -1,5 +1,6 @@
 import { Cart } from "../models/cart.js";
 import { ValidationError } from "../helpers/errorHandler.js";
+import { generateJWT } from "../helpers/generateJWT.js";
 
 export class CartService {
 
