@@ -1,6 +1,5 @@
 import { CartService } from "../services/cart.js";
 import { ArtworkService } from "../services/artwork.js";
-import { handleError } from "../helpers/errorHandler.js";
 
 const cartService = new CartService();
 const artworkService = new ArtworkService();
@@ -29,7 +28,7 @@ export class CartController {
   static async addItemToCart(req, res) {
     const { id } = req.params;
     const { newItemId, quantity } = req.body;
-    const newItem = await artworkService.getById({ id: newItemId });
+    const newItem = await artworkService.getById(newItemId);
     // A diferencia del update y delete item, el add espera el objeto completo.
     const cart = await cartService.addItem({ id, newItem, quantity });
     res.status(200).json(cart);
@@ -39,7 +38,6 @@ export class CartController {
   static async deleteItemFromCart(req, res) {
     const { id } = req.params;
     const { itemId } = req.body;
-    console.log("itemIdControlador:", itemId);
     const cart = await cartService.deleteItem({ id: id, itemId: itemId });
     res.status(200).json(cart);
   }

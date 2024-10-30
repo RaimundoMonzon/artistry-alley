@@ -74,4 +74,12 @@ export class UserService {
         const token = await generateJWT(user);
         return { user, token }
     }
+
+    async getUserEmail(id) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        return user.email;
+    }
 }

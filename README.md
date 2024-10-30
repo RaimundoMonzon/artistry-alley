@@ -5,6 +5,8 @@ npm install mongodb salteado
 npm install express
 npm i bcrypt
 npm i jsonwebtoken
+npm install @sendgrid/mail
+
 
 Steps to Add Content to the API
 1. Define the Schema
