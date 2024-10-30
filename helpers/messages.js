@@ -15,6 +15,18 @@ const messages = {
       tokenNotFound: "Token no encontrado",
       userNotFound: "Usuario no encontrado",
       userAlreadyExists: "El usuario ya existe",
+
+      // Mensajes bonitos para los Artwork.
+      deleteArtworkSuccess: "Obra incinerada.",
+      
+      // Mensajes de Error de Artwork.
+      artworkNotFound: "Ostias que se han robado la Mona Lisa.", // Artowrk no encontrada.
+
+      // Mensajes de Error del Carrito.
+      cartNotFound: "Carrito no encontrado",
+      itemAlreadyInCart: "El artwork ya está en el carrito",
+      noSuchItemInCart: "El artwork no está en el carrito",
+
   
       // Mensajes generales
       requiredField () {
@@ -26,14 +38,12 @@ const messages = {
       maxLength (maxLength) {
         return `El campo debe tener como máximo ${maxLength} caracteres`;
       },
+
       internalError: "Pues habra que llamar al desarrollador.", // Error del servidor interno.
   
       // Mensajes de las rutas
       routeNotFound: "Que pasa, te has perdido?", // Ruta no encontrada.
   
-      // Mensajes de las obras (ARTWORK)
-      artworkNotFound: "Ostias que se han robado la Mona Lisa.", // Artowrk no encontrada.
-      UserNotProvided: "Usuario no proporcionado",
     },
   };
   

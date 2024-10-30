@@ -18,9 +18,9 @@ export class UserService {
     // Obtiene un usuario por su ID y populatiza el objeto con sus artworks y exhibitions.
     async getById({ id }) {
         const user = await this.model.findById(id)
-        .populate("artworks")
-        .populate("exhibitions")
-        
+            .populate("artworks")
+            .populate("exhibitions")
+
         if (!user) {
             throw new NotFound(msg.userNotFound);
         }
@@ -29,11 +29,7 @@ export class UserService {
 
     async create({ input }) {
         const user = new this.model(input);
-        try {
-            return await user.save();
-        } catch (error) {
-            throw new ValidationError("Error al crear el usuario");
-        }
+        return await user.save();
     }
 
     async update({ id, input }) {
@@ -60,12 +56,7 @@ export class UserService {
         // Crear el usuario.
         const newUser = new this.model(input);
         // Guardar el usuario, y retornar el objeto. Si hay un error, lanzar una excepción.
-        try {
-            return await newUser.save();
-        } catch (error) {
-            console.error("Save Error:", error.message); // Log actual error message
-            throw new ValidationError("Error al crear el usuario");
-        }
+        return await newUser.save();
     }
 
     async loginUser({ input }) {

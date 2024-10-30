@@ -21,13 +21,8 @@ export class CartController {
 
   // Crear un carrito.
   static async createCart(req, res) {
-    try {
-      const { cart, token } = await cartService.createCart();
-      res.status(201).json({ cart, token });
-    } catch (error) {
-      handleError(error, res);
-    }
-    // Borrar Try/catch e implementar trycatch del controlador con el AsyncHandler
+    const { cart, token } = await cartService.createCart();
+    res.status(201).json({ cart, token });
   }
 
   // Agregar un artwork al carrito.

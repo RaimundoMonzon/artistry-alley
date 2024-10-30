@@ -1,4 +1,5 @@
 import { ArtworkService } from "../services/artwork.js";
+import { messagesByLang as msg } from "../helpers/messages.js";
 
 const artworkService = new ArtworkService();
 
@@ -32,6 +33,6 @@ export class ArtworkController {
     // Eliminar un artwork.
     static async deleteArtwork(req, res) {
         const artwork = await artworkService.delete({ id: req.params.id });
-        res.status(200).json({ message: msg.deleteUserSuccess });
+        res.status(200).json({ message: msg.deleteArtworkSuccess });
     }
 }

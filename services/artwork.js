@@ -16,8 +16,8 @@ export class ArtworkService {
     // Obtener un artwork por su ID y populatiza el objeto con sus categorias.
     async getById({ id }) {
         const artwork = await this.model.findById(id)
-        .populate("categories")
-        
+            .populate("categories")
+
         if (!artwork) {
             throw new NotFound(msg.artworkNotFound);
         }
@@ -26,11 +26,7 @@ export class ArtworkService {
 
     async create({ input }) {
         const artwork = new this.model(input);
-        try {
-            return await artwork.save();
-        } catch (error) {
-            throw new ValidationError("Error al crear la obra");
-        }
+        return await artwork.save();
     }
 
     async update({ id, input }) {
@@ -44,7 +40,7 @@ export class ArtworkService {
     async delete({ id }) {
         const artwork = await this.model.findByIdAndDelete(id);
         if (!artwork) {
-            throw new ValidationError(msg.artworkNotFound);
+            throw new NotFound(msg.artworkNotFound);
         }
     }
 

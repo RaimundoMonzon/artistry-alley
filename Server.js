@@ -5,6 +5,7 @@ import userRoutes from "./routes/user.js"; // Rutas de usuario.
 import cartRoutes from "./routes/cart.js"; // Rutas de carrito.
 import artworkRoutes from "./routes/artwork.js"; // Rutas de obras.
 import { PORT, DB_USER, SECRETKEY } from "./helpers/config.js";
+import { handleError } from "./helpers/errorHandler.js";
  
 class Server {
 
@@ -12,14 +13,19 @@ class Server {
         this.port = PORT;
         this.app = express();
         this.conectarBD();
-        this.cargarMiddlewares();
+        this.loadPreMiddlewares(); 
         this.cargarRutas();
+        this.loadPostMiddlewares();
     }
 
     listen() {
         this.app.listen(this.port,() => {
             console.log("Servidor en marcha en el puerto: " + this.port);
         })
+    }
+    
+    loadPreMiddlewares () {
+        this.app.use(json());
     }
 
     cargarRutas() {
@@ -29,8 +35,11 @@ class Server {
         this.app.use("/api/artwork", artworkRoutes);
     }
 
-    cargarMiddlewares () {
-        this.app.use(json());
+    loadPostMiddlewares() {
+        // Middleware para manejar errores. Express lo detecta como tal por los 4 parametros.
+        this.app.use((error, req, res, next) => {
+            handleError(error, res);
+        });
     }
 
     async conectarBD() {

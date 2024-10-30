@@ -14,43 +14,27 @@ export class UserController {
 
     // Obtener un usuario.
     static async getUser(req, res) {
-        try {
-            const { id } = req.params;
-            const user = await userService.getById({ id });
-            res.status(200).json(user);
-        } catch (error) {
-            handleError(error, res);
-        }
+        const { id } = req.params;
+        const user = await userService.getById({ id });
+        res.status(200).json(user);
     }
 
     // Crear un usuario.
     static async createUser(req, res) {
-        try {
-            const user = await userService.create({input: req.body});
-            res.status(201).json(user);
-        } catch (error) {
-            handleError(error, res);
-        }
+        const user = await userService.create({ input: req.body });
+        res.status(201).json(user);
     }
 
     // Actualizar un usuario.
     static async updateUser(req, res) {
-        try {
-            const user = await userService.update({ id: req.params.id, input: req.body });
-            res.status(200).json(user);
-        } catch (error) {
-            handleError(error, res);
-        }
+        const user = await userService.update({ id: req.params.id, input: req.body });
+        res.status(200).json(user);
     }
 
     // Eliminar un usuario.
     static async deleteUser(req, res) {
-        try {
-            const user = await userService.delete({ id: req.params.id });
-            res.status(200).json({ message: msg.deleteUserSuccess });
-        } catch (error) {
-            handleError(error, res);
-        }
+        const user = await userService.delete({ id: req.params.id });
+        res.status(200).json({ message: msg.deleteUserSuccess });
     }
 }
 
