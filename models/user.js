@@ -34,12 +34,36 @@ const userSchema = new mongoose.Schema(
     },
     artworks: [
       {
-        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artwork", required: true },
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Artwork",
+          required: true,
+        },
+        name: { type: String, required: true },
+        description: { type: String, required: true },
+        image: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+        categories: [{ name: { type: String, required: true } }],
       },
     ],
     exhibitions: [
       {
-        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Exhibition", required: true },
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Exhibition",
+          required: true,
+        },
+        title: { type: String, required: true },
+        description: { type: String, required: true },
+        location: { type: String, required: true },
+        date: { type: Date, required: true },
+        featuredArtworks: [
+          {
+            name: { type: String, required: true },
+            image: { type: String, required: true },
+          },
+        ],
       },
     ],
   },
@@ -47,7 +71,7 @@ const userSchema = new mongoose.Schema(
     collection: "users", // Nombre de la colección en la base de datos.
     versionKey: false, // Esto oculta el campo __v
     timestamps: true,
-  },
+  }
 );
 
 // Middleware de Encriptacion.

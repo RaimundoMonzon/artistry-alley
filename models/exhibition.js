@@ -30,12 +30,16 @@ const exhibitionSchema = new mongoose.Schema(
     },
     featuredArtworks: [
       {
-        _id: { type: mongoose.Schema.Types.ObjectId, ref: "Artwork", required: true },
-        title : String,
-        category : String,
-        price : Number,
-        forSale : Boolean,
-        image : String,
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Artwork",
+          required: true,
+        },
+        title: String,
+        category: String,
+        price: Number,
+        forSale: Boolean,
+        image: String,
       },
     ],
   },
@@ -43,7 +47,24 @@ const exhibitionSchema = new mongoose.Schema(
     collection: "exhibitions", // Nombre de la colección en la base de datos.
     versionKey: false, // Esto oculta el campo __v
     timestamps: true,
-  },
+  }
 );
+
+exhibitionSchema.post("findOneAndUpdate", async function (doc) {
+  if (doc) {
+    await mongoose.model("User").updateOne(
+      { "exhibitions._id": doc._id },
+      {
+        $set: {
+          "exhibitions.$.title": doc.title,
+          "exhibitions.$.description": doc.description,
+          "exhibitions.$.location": doc.location,
+          "exhibitions.$.date": doc.date,
+          "exhibitions.$.featuredArtworks": doc.featuredArtworks,
+        },
+      }
+    );
+  }
+});
 
 export const Exhibition = mongoose.model("Exhibition", exhibitionSchema);

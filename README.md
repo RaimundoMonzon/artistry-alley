@@ -44,7 +44,4 @@ Server: Mount routes in server.js with app.use('/api/users', userRoutes);.
 
 
 POR HACER
-
-1. Falta agregar Artworks a los usuarios, y eliminarlos de los usuarios.
-2. Los mismo para los exhibitions.
-3. Agregar el middleware a las rutas de usuarios. Solo los admin pueden eliminar un usuario o editar su informacion. (Que no sean ellos mismos).
+1. Agregar el middleware a las rutas de usuarios. Solo los admin pueden eliminar un usuario o editar su informacion. (Que no sean ellos mismos).
