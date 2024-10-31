@@ -82,4 +82,40 @@ export class UserService {
         }
         return user.email;
     }
+
+    async addArtwork({ id, artwork }) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        user.artworks.push(artwork);
+        return await user.save();
+    }
+
+    async removeArtwork({ id, artworkId }) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        user.artworks = user.artworks.filter(artwork => artwork._id !== artworkId);
+        return await user.save();
+    }
+
+    async addExhibition({ id, exhibition }) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        user.exhibitions.push(exhibition);
+        return await user.save();
+    }
+
+    async removeExhibition({ id, exhibitionId }) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        user.exhibitions = user.exhibitions.filter(exhibition => exhibition._id !== exhibitionId);
+        return await user.save();
+    }
 }

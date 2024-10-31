@@ -7,7 +7,6 @@ npm i bcrypt
 npm i jsonwebtoken
 npm install @sendgrid/mail
 
-
 Steps to Add Content to the API
 1. Define the Schema
 - Location: /models
@@ -48,7 +47,4 @@ POR HACER
 
 1. Falta agregar Artworks a los usuarios, y eliminarlos de los usuarios.
 2. Los mismo para los exhibitions.
-3. Service, controller y routes para las categorias.
-4. Hacer el middleware de validacion de rol para los usuarios.
-5. Agregar el middleware a las rutas de usuarios. Solo los admin pueden eliminar un usuario o editar su informacion. (Que no sean ellos mismos).
-6. EL CARRITO NO AGREGA BIEN EL ARTWORK, el Postman request funciona pero no se actualiza el carrito.
+3. Agregar el middleware a las rutas de usuarios. Solo los admin pueden eliminar un usuario o editar su informacion. (Que no sean ellos mismos).

@@ -1,8 +1,11 @@
 import { UserService } from "../services/user.js";
+import { ArtworkService } from "../services/artwork.js";
+import {ExhibitionService} from "../services/exhibition.js";
 import { messagesByLang as msg } from "../helpers/messages.js";
-import { handleError } from "../helpers/errorHandler.js";
 
 const userService = new UserService();
+const artworkService = new ArtworkService();
+const exhibitionService = new ExhibitionService();
 
 export class UserController {
 
@@ -36,5 +39,26 @@ export class UserController {
         const user = await userService.delete({ id: req.params.id });
         res.status(200).json({ message: msg.deleteUserSuccess });
     }
-}
 
+    static async addArtworkToUser(req, res) {
+        const artwork = await artworkService.getById({ id: req.params.artworkId });
+        const user = await userService.addArtwork({ id: req.params.userId, artwork: artwork });
+        res.status(200).json(user);
+    }
+
+    static async removeArtworkFromUser(req, res) {
+        const user = await userService.removeArtwork({ id: req.params.userId, artworkId: req.params.artworkId });
+        res.status(200).json(user);
+    }
+
+    static async addExhibitionToUser(req, res) {
+        const exhibition = await exhibitionService.getById({ id: req.params.exhibitionId });
+        const user = await userService.addExhibition({ id: req.params.userId, exhibition: exhibition });
+        res.status(200).json(user);
+    }
+
+    static async removeExhibitionFromUser(req, res) {
+        const user = await userService.removeExhibition({ id: req.params.userId, exhibitionId: req.params.exhibitionId });
+        res.status(200).json(user);
+    }
+}

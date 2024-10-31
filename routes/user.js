@@ -9,15 +9,27 @@ const router = Router();
 router.get('/', [validateToken], asyncHandler(UserController.getAllUsers));
 
 // Obtener un usuario.
-router.get('/:id', [validateToken], asyncHandler(UserController.getUser));
+router.get('/:userId', [validateToken], asyncHandler(UserController.getUser));
 
 // Crear un usuario.
 router.post('/', [validateToken], asyncHandler(UserController.createUser));
 
 // Actualizar un usuario.
-router.put('/:id', [validateToken], asyncHandler(UserController.updateUser));
+router.put('/:userId', [validateToken], asyncHandler(UserController.updateUser));
 
 // Eliminar un usuario.
-router.delete('/:id', [validateToken], asyncHandler(UserController.deleteUser));
+router.delete('/:userId', [validateToken], asyncHandler(UserController.deleteUser));
+
+// Agregar artwork a un usuario.
+router.post('/:userId/artworks/:artworkId', [validateToken], asyncHandler(UserController.addArtworkToUser));
+
+// Eliminar artwork de un usuario.
+router.delete('/:userId/artworks/:artworkId', [validateToken], asyncHandler(UserController.removeArtworkFromUser));
+
+// Agregar exhibition a un usuario.
+router.post('/:userId/exhibitions/:exhibitionId', [validateToken], asyncHandler(UserController.addExhibitionToUser));
+
+// Eliminar exhibition de un usuario.
+router.delete('/:userId/exhibitions/:exhibitionId', [validateToken], asyncHandler(UserController.removeExhibitionFromUser));
 
 export default router;
