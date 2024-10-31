@@ -15,6 +15,7 @@ const messages = {
       tokenNotFound: "Token no encontrado",
       userNotFound: "Usuario no encontrado",
       userAlreadyExists: "El usuario ya existe",
+      invalidEmail: "Correo no valido",
 
       // Mensajes bonitos para los Artwork.
       deleteArtworkSuccess: "Obra incinerada.",
@@ -26,6 +27,14 @@ const messages = {
       cartNotFound: "Carrito no encontrado",
       itemAlreadyInCart: "El artwork ya está en el carrito",
       noSuchItemInCart: "El artwork no está en el carrito",
+
+      // Mensajes de Error de Categoria.
+      categoryNotFound: "Categoria no encontrada",
+      deleteCategorySuccess: "La categoria ha sido eliminada correctamente",
+
+      // Mensajes de Error de Exhibition.
+      exhibitionNotFound: "Exposición no encontrada",
+      deleteExhibitionSuccess: "Exposición eliminada correctamente",
 
   
       // Mensajes generales

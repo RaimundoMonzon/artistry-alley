@@ -7,7 +7,7 @@ const categorySchema = new mongoose.Schema(
       type: String,
       required: [true, msg.requiredField()],
       minlength: [3, msg.minLength(3)],
-      maxlength: [20, msg.maxLength(20)],
+      maxlength: [30, msg.maxLength(30)],
       trim: true,
     },
     description: {
@@ -22,7 +22,7 @@ const categorySchema = new mongoose.Schema(
     collection: "categories", // Nombre de la colección en la base de datos.
     versionKey: false, // Esto oculta el campo __v
     timestamps: true,
-  },
+  }
 );
 
 export const Category = mongoose.model("Category", categorySchema);

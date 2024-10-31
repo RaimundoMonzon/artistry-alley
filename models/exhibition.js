@@ -7,7 +7,7 @@ const exhibitionSchema = new mongoose.Schema(
       type: String,
       required: [true, msg.requiredField()],
       minlength: [3, msg.minLength(3)],
-      maxlength: [20, msg.maxLength(20)],
+      maxlength: [30, msg.maxLength(30)],
       trim: true,
     },
     description: {

@@ -5,6 +5,8 @@ import userRoutes from "./routes/user.js"; // Rutas de usuario.
 import cartRoutes from "./routes/cart.js"; // Rutas de carrito.
 import artworkRoutes from "./routes/artwork.js"; // Rutas de obras.
 import contactRoutes from "./routes/contact.js"; // Rutas de contacto.
+import categoryRoutes from "./routes/category.js"; // Rutas de categorias.
+import exhibitionRoutes from "./routes/exhibition.js"; // Rutas de exposiciones.
 import { PORT, DB_USER, SECRETKEY } from "./helpers/config.js";
 import { handleError } from "./helpers/errorHandler.js";
 
@@ -36,6 +38,8 @@ class Server {
         this.app.use("/api/cart", cartRoutes);
         this.app.use("/api/artwork", artworkRoutes);
         this.app.use("/api/contact", contactRoutes);
+        this.app.use("/api/category", categoryRoutes);
+        this.app.use("/api/exhibition", exhibitionRoutes);
 
         // Rutas especificas para artistas. Para el Frontend.
         // this.app.use("/api/artist/:id/artworks", artistArtworkRoutes);

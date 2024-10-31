@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devstart": "node --watch index",
+    "devstart": "node --watch api/index",
     "start": "node api/index"
   },
   "author": "",
