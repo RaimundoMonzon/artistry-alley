@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.js';
-import { validateToken, validateRol } from "../middlewares/validations.js";
+import { validateToken, validateAdmin } from "../middlewares/validations.js";
 import { asyncHandler } from '../helpers/asyncHandler.js';
 
 const router = Router();
