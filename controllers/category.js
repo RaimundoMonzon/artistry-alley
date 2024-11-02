@@ -26,7 +26,7 @@ export class CategoryController {
     }
 
     static async deleteCategory(req, res) {
-        const category = await categoryService.delete({ id: req.params.id });
+        await categoryService.delete({ id: req.params.id });
         res.status(200).json(msg.deleteCategorySuccess);
     }
 }

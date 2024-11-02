@@ -1,11 +1,12 @@
 # portfolio-web
 Portfolio web enfocado a ilustraciones/animaciones | Programación 3 - 3.609 UTN-INSPT
 npm install mongoose
-npm install mongodb salteado
+npm install mongodb
 npm install express
 npm i bcrypt
 npm i jsonwebtoken
-npm install @sendgrid/mail
+npm i @sendgrid/mail
+npm i express-async-handler
 
 Steps to Add Content to the API
 1. Define the Schema

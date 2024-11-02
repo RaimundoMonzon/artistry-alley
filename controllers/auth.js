@@ -7,15 +7,13 @@ export class AuthController {
 
     // Registrar un usuario.
     static async registerUser(req, res) {
-        const { body } = req; // Esta es una manera de acceder a los datos de la petición.
-        const user = await userService.registerUser({ input: body });
+        const user = await userService.registerUser({ input: req.body });
         res.status(201).json({ message: msg.registerSuccess, user });
     }
 
     // Login de un usuario.
     static async loginUser(req, res) {
-        const input = req.body; // Esta es otra manera de acceder a los datos de la petición.
-        const { user, token } = await userService.loginUser({ input });
+        const { user, token } = await userService.loginUser({ input: req.body });
         res.status(200).json({ message: msg.loginSuccess, user, token });
     }
 }

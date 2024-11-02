@@ -1,6 +1,6 @@
 import { ContactForm } from "../models/contactForm.js";
 import { messagesByLang as msg } from "../helpers/messages.js";
-import { NotFound } from "../helpers/errorHandler.js";
+import { NotFound, ValidationError } from "../helpers/errorHandler.js";
 
 export class ContactFormService {
 
@@ -21,6 +21,10 @@ export class ContactFormService {
     }
 
     async create({ input }) {
+        const existingContactForm = await this.model.findOne({ email: input.email });
+        if (existingContactForm) {
+            throw new ValidationError(msg.maxAttempts());
+        }
         const contactForm = new this.model(input);
         return await contactForm.save();
     }

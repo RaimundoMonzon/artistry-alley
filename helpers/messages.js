@@ -1,4 +1,5 @@
 import {LANGUAGE} from "./config.js";
+import { CONTACT_FORM_TIMEOUT } from "./config.js";
 
 const messages = {
     es: {
@@ -36,6 +37,11 @@ const messages = {
       exhibitionNotFound: "Exposición no encontrada",
       deleteExhibitionSuccess: "Exposición eliminada correctamente",
 
+      // Mensajes de Error de ContactForm.
+      contactFormNotFound: "Formulario de contacto no encontrado",
+      maxAttempts () {
+        return `Yas has enviado una solicitud de contacto, vuelve a intentarlo en ${CONTACT_FORM_TIMEOUT}.`;
+      },
   
       // Mensajes generales
       requiredField () {

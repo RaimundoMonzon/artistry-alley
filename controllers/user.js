@@ -17,8 +17,7 @@ export class UserController {
 
     // Obtener un usuario.
     static async getUser(req, res) {
-        const { id } = req.params;
-        const user = await userService.getById({ id });
+        const user = await userService.getById(req.params.id);
         res.status(200).json(user);
     }
 
@@ -36,7 +35,7 @@ export class UserController {
 
     // Eliminar un usuario.
     static async deleteUser(req, res) {
-        const user = await userService.delete({ id: req.params.id });
+        await userService.delete({ id: req.params.id });
         res.status(200).json({ message: msg.deleteUserSuccess });
     }
 

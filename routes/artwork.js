@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ArtworkController } from '../controllers/artwork.js';
-import { asyncHandler } from '../helpers/asyncHandler.js';
+import asyncHandler from "express-async-handler";
 
 const router = Router();
 

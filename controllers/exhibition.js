@@ -11,7 +11,7 @@ export class ExhibitionController {
     }
 
     static async getExhibitionById(req, res) {
-        const exhibition = await exhibitionService.getById({ id: req.params.id });
+        const exhibition = await exhibitionService.getById(req.params.id);
         res.status(200).json(exhibition);
     }
 
@@ -26,7 +26,7 @@ export class ExhibitionController {
     }
 
     static async deleteExhibition(req, res) {
-        const exhibition = await exhibitionService.delete({ id: req.params.id });
+        await exhibitionService.delete(req.params.id);
         res.status(200).json(msg.deleteExhibitionSuccess);
     }
 }

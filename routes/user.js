@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/user.js';
 import { validateToken, validateAdmin } from "../middlewares/validations.js";
-import { asyncHandler } from '../helpers/asyncHandler.js';
+import asyncHandler from "express-async-handler";
 
 const router = Router();
 

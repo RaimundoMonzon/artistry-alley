@@ -13,8 +13,7 @@ export class ArtworkController {
 
     // Obtener un artwork.
     static async getArtwork(req, res) {
-        const { id } = req.params;
-        const artwork = await artworkService.getById({ id });
+        const artwork = await artworkService.getById({ id: req.params.id });
         res.status(200).json(artwork);
     }
 
@@ -32,7 +31,7 @@ export class ArtworkController {
 
     // Eliminar un artwork.
     static async deleteArtwork(req, res) {
-        const artwork = await artworkService.delete({ id: req.params.id });
+        await artworkService.delete({ id: req.params.id });
         res.status(200).json({ message: msg.deleteArtworkSuccess });
     }
 }

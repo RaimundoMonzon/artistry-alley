@@ -16,17 +16,14 @@ export class ContactController {
 
     // Obtener un contactForm.
     static async getContactForm(req, res) {
-        const { id } = req.params;
-        const contactForm = await contactFormService.getById(id);
+        const contactForm = await contactFormService.getById(req.params.id);
         res.status(200).json(contactForm);
     }
 
     // Crear un contactForm.
     static async sendContactForm(req, res) {
         const contactForm = await contactFormService.create({ input: req.body });
-        const { id } = req.params;
-        console.log("userIdControlador:", id);
-        const userEmail = await userService.getUserEmail(id);
+        const userEmail = await userService.getUserEmail(req.params.id);
         await emailService.sendContactForm({ contactForm: contactForm, userEmail: userEmail });
         res.status(201).json(contactForm);
     }

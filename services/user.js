@@ -10,13 +10,12 @@ export class UserService {
         this.model = User;
     }
 
-    // CRUD Basico replicable.
     async getAll() {
         return this.model.find({});
     }
 
     // Obtiene un usuario por su ID y populatiza el objeto con sus artworks y exhibitions.
-    async getById({ id }) {
+    async getById(id) {
         const user = await this.model.findById(id)
             .populate("artworks")
             .populate("exhibitions")

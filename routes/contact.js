@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { ContactController } from '../controllers/contact.js';
-import { asyncHandler } from '../helpers/asyncHandler.js';
+import asyncHandler from "express-async-handler";
 
 const router = Router();
 

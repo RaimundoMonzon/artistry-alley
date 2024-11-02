@@ -11,7 +11,7 @@ export class ExhibitionService {
         return this.model.find({});
     }
 
-    async getById({ id }) {
+    async getById(id) {
         const exhibition = await this.model.findById(id);
 
         if (!exhibition) {
@@ -35,7 +35,7 @@ export class ExhibitionService {
         return exhibition;
     }
 
-    async delete({ id }) {
+    async delete(id) {
         const exhibition = await this.model.findByIdAndDelete(id);
         if (!exhibition) {
             throw new NotFound(msg.exhibitionNotFound);

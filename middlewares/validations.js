@@ -22,8 +22,7 @@ export const validateToken = async (req, res, next) => {
     });
 };
 
-// A chequear.
-export const validateRol = async (req, res, next) => {
+export const validateAdmin = async (req, res, next) => {
 
     const rol = req.user.rol;
 

@@ -13,8 +13,7 @@ export class CartController {
 
   // Obtener un carrito.
   static async getCart(req, res) {
-    const { id } = req.params;
-    const cart = await cartService.getById(id);
+    const cart = await cartService.getById(req.params.id);
     res.status(200).json(cart);
   }
 
@@ -26,27 +25,22 @@ export class CartController {
 
   // Agregar un artwork al carrito.
   static async addItemToCart(req, res) {
-    const { id } = req.params;
-    const { newItemId, quantity } = req.body;
-    const newItem = await artworkService.getById(newItemId);
+    const newItem = await artworkService.getById(req.params.newItemId);
     // A diferencia del update y delete item, el add espera el objeto completo.
-    const cart = await cartService.addItem({ id, newItem, quantity });
+    const cart = await cartService.addItem({ id: req.params.id, newItem: newItem, quantity: req.body.quantity });
     res.status(200).json(cart);
   }
 
   // Eliminar un artwork del carrito.
   static async deleteItemFromCart(req, res) {
-    const { id } = req.params;
-    const { itemId } = req.body;
-    const cart = await cartService.deleteItem({ id: id, itemId: itemId });
+    const cart = await cartService.deleteItem({ id: req.params.id, itemId: req.body.itemId });
     res.status(200).json(cart);
   }
 
   // Actualizar el cantidad de artwork en el carrito.
   static async updateItemQuantity(req, res) {
-    const { id } = req.params;
-    const { itemId, quantity } = req.body;
-    const cart = await cartService.updateItemQuantity({ id: id, itemId: itemId, quantity: quantity });
+    const cart = await cartService.updateItemQuantity({ id: req.params.id, itemId: req.body.itemId, quantity: req.body.quantity });
     res.status(200).json(cart);
   }
+
 }
