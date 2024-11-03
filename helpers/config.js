@@ -12,4 +12,5 @@ export const {
     SENDGRID_API_KEY,
     SENDGRID_VERIFIED_SENDER,
     CONTACT_FORM_TIMEOUT,
+    MP_ACCESS_TOKEN,
 } = process.env;

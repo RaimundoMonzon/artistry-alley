@@ -3,11 +3,12 @@ Portfolio web enfocado a ilustraciones/animaciones | Programación 3 - 3.609 UTN
 npm install mongoose
 npm install mongodb
 npm install express
-npm i bcrypt
-npm i jsonwebtoken
-npm i @sendgrid/mail
-npm i express-async-handler
-npm i express-session
+npm i bcrypt -> password encryption
+npm i jsonwebtoken -> token authentication
+npm i @sendgrid/mail -> email Delivery Service 
+npm i express-async-handler -> async handler removes the need for callbacks and makes the code more readable
+npm i express-session -> session management for carts
+npm i mercadopago -> payment gateway
 
 Steps to Add Content to the API
 1. Define the Schema
@@ -46,4 +47,5 @@ Server: Mount routes in server.js with app.use('/api/users', userRoutes);.
 
 
 POR HACER
-1. Agregar el middleware a las rutas de usuarios. Solo los admin pueden eliminar un usuario o editar su informacion. (Que no sean ellos mismos).
+1. Implementar Cart Timeout linea 40 Server.js
+2.

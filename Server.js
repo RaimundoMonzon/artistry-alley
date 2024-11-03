@@ -7,7 +7,8 @@ import artworkRoutes from "./routes/artwork.js"; // Rutas de obras.
 import contactRoutes from "./routes/contact.js"; // Rutas de contacto.
 import categoryRoutes from "./routes/category.js"; // Rutas de categorias.
 import exhibitionRoutes from "./routes/exhibition.js"; // Rutas de exposiciones.
-import { PORT, DB_USER, SECRETKEY, CART_TIMEOUT } from "./helpers/config.js";
+import paymentRoutes from "./routes/payment.js";
+import { PORT, DB_USER, SECRETKEY, CART_TIMEOUT , MP_ACCESS_TOKEN} from "./helpers/config.js";
 import { handleError } from "./helpers/errorHandler.js";
 import session from "express-session";
 
@@ -36,10 +37,10 @@ class Server {
             saveUninitialized: false,
             rolling: true, // Reinicia el tiempo de caducidad de la cookie con cada petición.
             cookie: { 
-                maxAge: 60000, // Tiempo de caducidad de la cookie en milisegundos.
+                maxAge: 60000, // Tiempo de caducidad de la cookie en milisegundos. IMPLEMENTAR CART_TIMEOUT
                 secure: false // Solo se puede acceder a través de HTTPS.
             }
-        }));          
+        }));
     }
 
     cargarRutas() {
@@ -51,6 +52,7 @@ class Server {
         this.app.use("/api/contact", contactRoutes);
         this.app.use("/api/category", categoryRoutes);
         this.app.use("/api/exhibition", exhibitionRoutes);
+        this.app.use("/api/payment", paymentRoutes);
 
         // Rutas especificas para artistas. Para el Frontend.
         // this.app.use("/api/artist/:id/artworks", artistArtworkRoutes);
