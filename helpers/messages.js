@@ -28,6 +28,7 @@ const messages = {
       cartNotFound: "Carrito no encontrado",
       itemAlreadyInCart: "El artwork ya está en el carrito",
       noSuchItemInCart: "El artwork no está en el carrito",
+      cartCleared: "Carrito borrado correctamente",
 
       // Mensajes de Error de Categoria.
       categoryNotFound: "Categoria no encontrada",
@@ -58,6 +59,7 @@ const messages = {
   
       // Mensajes de las rutas
       routeNotFound: "Que pasa, te has perdido?", // Ruta no encontrada.
+
   
     },
   };

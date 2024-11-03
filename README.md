@@ -7,6 +7,7 @@ npm i bcrypt
 npm i jsonwebtoken
 npm i @sendgrid/mail
 npm i express-async-handler
+npm i express-session
 
 Steps to Add Content to the API
 1. Define the Schema

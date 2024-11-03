@@ -36,6 +36,19 @@ const artworkSchema = new mongoose.Schema(
         message: msg.requiredField(),
       },
     },
+    stock: {
+      type: Number,
+      min: [1, msg.minLength(1)],
+      default: 1,
+      validate: {
+        validator: function (value) {
+          return (
+            !this.forSale || (this.forSale && value !== undefined && value > 0)
+          );
+        },
+        message: msg.requiredField(),
+      },
+    },
     categories: [
       {
         _id: {
@@ -72,6 +85,7 @@ artworkSchema.post("findOneAndUpdate", async function (doc) {
           "artworks.$.categories": doc.categories,
           "artworks.$.forSale": doc.forSale,
           "artworks.$.price": doc.price,
+          "artworks.$.stock": doc.stock,          
         },
       }
     );

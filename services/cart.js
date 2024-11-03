@@ -8,13 +8,6 @@ export class CartService {
         this.model = Cart;
     }
 
-    async createCart() {
-        const cart = new this.model({ items: [], totalPrice: 0 });
-        const savedCart = await cart.save();
-        const cartToken = await generateCartToken(savedCart);
-        return { cart: savedCart, token: cartToken };
-    }
-
     async getAll() {
         return this.model.find({});
     }
@@ -27,55 +20,69 @@ export class CartService {
         return cart;
     }
 
-    async addItem({ id, newItem, quantity }) {
-        const cart = await this.getById(id);
-        const itemAlreadyInCart = cart.items.find(
+    async createCart(session) {
+        if (!session.cart) {
+            session.cart = new this.model({ items: [], totalPrice: 0 });
+        }
+        return session.cart;
+    }
+
+    async getCart(session) {
+        if (!session.cart) {
+            throw new NotFound(msg.cartNotFound);
+        }
+        return session.cart;
+    }
+
+    async addItem(session, newItem, quantity) {
+        if (!session.cart) { this.createCart(session); }
+
+        const itemAlreadyInCart = session.cart.items.find(
             (item) => item._id.toString() === newItem._id.toString()
         );
-        if (!itemAlreadyInCart) {
-            cart.items.push({
-                _id: newItem._id,
-                title: newItem.title,
-                price: newItem.price,
-                quantity: quantity,
-            });
-            cart.totalPrice += newItem.price * quantity;
 
-            return await cart.save()
-        } else {
-            throw new ValidationError(msg.itemAlreadyInCart);
-        }
+        if (itemAlreadyInCart) { throw new ValidationError(msg.itemAlreadyInCart); }
+
+        session.cart.items.push({
+            _id: newItem._id,
+            title: newItem.title,
+            price: newItem.price,
+            quantity: quantity,
+        });
+        session.cart.totalPrice += newItem.price * quantity;
+
+        return session.cart;
     }
 
-    async updateItemQuantity({ id, itemId, quantity }) {
-        const cart = await this.getById(id);
-        const itemAlreadyInCart = cart.items.find(
+    async updateItemQuantity(session, itemId, quantity) {
+        if (!session.cart) { throw new NotFound(msg.cartNotFound); }
+
+        const itemAlreadyInCart = session.cart.items.find(
             (item) => item._id.toString() === itemId.toString()
         );
 
-        if (!itemAlreadyInCart) {
-            throw new ValidationError(msg.noSuchItemInCart);
-        }
+        if (!itemAlreadyInCart) { throw new ValidationError(msg.noSuchItemInCart); }
 
+        session.cart.totalPrice += (quantity - itemAlreadyInCart.quantity) * itemAlreadyInCart.price;
         itemAlreadyInCart.quantity = quantity;
-        return await cart.save();
+        return session.cart;
     }
 
-    async deleteItem({ id, itemId }) {
-        const cart = await this.getById(id);
-        const itemAlreadyInCart = cart.items.find(
+    async deleteItem(session, itemId) {
+        if (!session.cart) { throw new NotFound(msg.cartNotFound); }
+
+        const itemAlreadyInCart = session.cart.items.find(
             (item) => item._id.toString() === itemId.toString()
         );
 
-        if (!itemAlreadyInCart) {
-            throw new ValidationError(msg.noSuchItemInCart);
-        }
+        if (!itemAlreadyInCart) { throw new ValidationError(msg.noSuchItemInCart); }
 
-        cart.items = cart.items.filter(
+        session.cart.totalPrice -= itemAlreadyInCart.price * itemAlreadyInCart.quantity;
+
+        session.cart.items = session.cart.items.filter(
             (item) => item._id.toString() !== itemId.toString()
         );
-        cart.totalPrice -= itemAlreadyInCart.price * itemAlreadyInCart.quantity;
 
-        return await cart.save();
+        return session.cart;
     }
 }

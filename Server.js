@@ -7,8 +7,9 @@ import artworkRoutes from "./routes/artwork.js"; // Rutas de obras.
 import contactRoutes from "./routes/contact.js"; // Rutas de contacto.
 import categoryRoutes from "./routes/category.js"; // Rutas de categorias.
 import exhibitionRoutes from "./routes/exhibition.js"; // Rutas de exposiciones.
-import { PORT, DB_USER, SECRETKEY } from "./helpers/config.js";
+import { PORT, DB_USER, SECRETKEY, CART_TIMEOUT } from "./helpers/config.js";
 import { handleError } from "./helpers/errorHandler.js";
+import session from "express-session";
 
 class Server {
 
@@ -29,6 +30,16 @@ class Server {
 
     loadPreMiddlewares() {
         this.app.use(json());
+        this.app.use(session({
+            secret: SECRETKEY,
+            resave: false,
+            saveUninitialized: false,
+            rolling: true, // Reinicia el tiempo de caducidad de la cookie con cada petición.
+            cookie: { 
+                maxAge: 60000, // Tiempo de caducidad de la cookie en milisegundos.
+                secure: false // Solo se puede acceder a través de HTTPS.
+            }
+        }));          
     }
 
     cargarRutas() {

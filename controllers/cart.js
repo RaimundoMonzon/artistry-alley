@@ -12,35 +12,52 @@ export class CartController {
   }
 
   // Obtener un carrito.
-  static async getCart(req, res) {
+  static async getCartById(req, res) {
     const cart = await cartService.getById(req.params.id);
+    res.status(200).json(cart);
+  }
+
+  // Obtener el carrito de la sesión.
+  static async getCurrentCart(req, res) {
+    const cart = await cartService.getCart(req.session);
     res.status(200).json(cart);
   }
 
   // Crear un carrito.
   static async createCart(req, res) {
-    const { cart, token } = await cartService.createCart();
-    res.status(201).json({ cart, token });
+    const cart = await cartService.createCart(req.session);
+    res.status(201).json(cart);
   }
 
   // Agregar un artwork al carrito.
   static async addItemToCart(req, res) {
-    const newItem = await artworkService.getById(req.params.newItemId);
-    // A diferencia del update y delete item, el add espera el objeto completo.
-    const cart = await cartService.addItem({ id: req.params.id, newItem: newItem, quantity: req.body.quantity });
+    const newItem = await artworkService.getById(req.params.itemId);
+    const quantity = req.body.quantity;
+    if (quantity > newItem.stock) { const cart = await cartService.addItem(req.session, newItem, newItem.stock); }
+    if (quantity < 1) { const cart = await cartService.addItem(req.session, newItem, 1); }
+    else { const cart = await cartService.addItem(req.session, newItem, quantity); }
     res.status(200).json(cart);
   }
 
   // Eliminar un artwork del carrito.
   static async deleteItemFromCart(req, res) {
-    const cart = await cartService.deleteItem({ id: req.params.id, itemId: req.body.itemId });
+    const cart = await cartService.deleteItem(req.params.id, req.body.itemId);
     res.status(200).json(cart);
   }
 
   // Actualizar el cantidad de artwork en el carrito.
   static async updateItemQuantity(req, res) {
-    const cart = await cartService.updateItemQuantity({ id: req.params.id, itemId: req.body.itemId, quantity: req.body.quantity });
+    const newItem = await artworkService.getById(req.params.itemId);
+    const quantity = req.body.quantity;
+    if (quantity > newItem.stock) { const cart = await cartService.updateItemQuantity(req.session, req.body.itemId, newItem.stock); }
+    if (quantity < 1) { const cart = await cartService.updateItemQuantity(req.session, req.body.itemId, 1); }
+    else { const cart = await cartService.updateItemQuantity(req.session, req.body.itemId, quantity); }
     res.status(200).json(cart);
+  }
+
+  static async clearCart(req, res) {
+    req.session.cart = null;
+    res.status(200).json({ message: msg.cartCleared });
   }
 
 }

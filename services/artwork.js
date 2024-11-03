@@ -13,7 +13,7 @@ export class ArtworkService {
   }
 
   // Obtener un artwork por su ID y populatiza el objeto con sus categorias.
-  async getById({ id }) {
+  async getById(id) {
     const artwork = await this.model.findById(id).populate("categories");
 
     if (!artwork) {
