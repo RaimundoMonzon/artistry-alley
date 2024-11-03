@@ -13,7 +13,7 @@ export class ArtworkController {
 
     // Obtener un artwork.
     static async getArtwork(req, res) {
-        const artwork = await artworkService.getById({ id: req.params.id });
+        const artwork = await artworkService.getById(req.params.id);
         res.status(200).json(artwork);
     }
 
