@@ -4,18 +4,12 @@ import asyncHandler from "express-async-handler";
 
 const router = Router();
 
-// Rutas de carrito.
-// Obtener todos los carritos.
-router.get('/', asyncHandler(CartController.getAllCarts));
-
-// Obtener un carrito.
-router.get('/:id', asyncHandler(CartController.getCart));
-
 // Crear un carrito.
 router.post('/', asyncHandler(CartController.createCart));
 
+// Obtener el carrito de la sesión actual.
+router.get('/current', asyncHandler(CartController.getCurrentCart));
 
-// Operaciones del carrito.
 // Agregar un artwork al carrito.
 router.put('/addItem/:itemId', asyncHandler(CartController.addItemToCart));
 

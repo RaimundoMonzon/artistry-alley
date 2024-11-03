@@ -1,6 +1,5 @@
 import { Cart } from "../models/cart.js";
 import { NotFound, ValidationError } from "../helpers/errorHandler.js";
-import { generateCartToken } from "../helpers/generateJWT.js";
 import { messagesByLang as msg } from "../helpers/messages.js";
 
 export class CartService {
