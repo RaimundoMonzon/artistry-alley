@@ -19,6 +19,7 @@ const messages = {
       userAlreadyExists: "El usuario ya existe",
       invalidEmail: "Correo no valido",
       failedToGenerateToken: "No se pudo generar el token",
+      adminAlreadyExists: "Ya existe un admin, para crear otro, pongase en contacto con el desarrollador.",
 
       // Mensajes bonitos para los Artwork.
       deleteArtworkSuccess: "Obra incinerada.",

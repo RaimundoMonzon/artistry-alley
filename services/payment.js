@@ -10,7 +10,7 @@ export class PaymentService {
             options: {
                 environment: 'sandbox', // Cambiar a 'production' para producción.
                 timeout: 5000,
-                idempotencyKey: 'uuidv4()'
+                idempotencyKey: uuidv4()
             }
         });
 
@@ -29,7 +29,7 @@ export class PaymentService {
                     shipments: reqBody.shipments, // Información de la entrega.
                 },
                 application_fee: null,
-                binary_mode: true, // En false la transaccion puede devolver PENDIENTE.
+                binary_mode: false, // En false la transaccion puede devolver PENDIENTE.
                 campaign_id: null,
                 capture: false,
                 coupon_amount: null,
@@ -38,14 +38,21 @@ export class PaymentService {
                 external_reference: 'MP0001',
                 installments: 1, // Número de cuotas.
                 metadata: null,
-                payer: reqBody.payer, // Información del comprador.
+                payer: {
+                    entity_type: 'individual',
+                    type: 'customer',
+                    email: reqBody.email,
+                    identification: {
+                        type: reqBody.cardInfo.cardholder.identification.type,
+                        number: reqBody.cardInfo.cardholder.identification.number
+                    }
+                },
                 payment_method_id: reqBody.payment_method_id, // ID del método de pago. Por ejemplo, master o visa.
                 token: token, // Token de la tarjeta, generado a partir de la tarjeta.
                 transaction_amount: totalPrice // El total de la compra.
             },
-            requestOptions: { idempotencyKey: 'uuidv4()' } // Generar UUID para cada petición.
+            requestOptions: { idempotencyKey: uuidv4() } // Generar UUID para cada petición.
         })
-
     }
 
     async generateCardToken(card) {

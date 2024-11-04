@@ -107,21 +107,29 @@ export class UserService {
         return user;
     }
 
-    // async addArtwork({ id, artwork }) {
-    //     const user = await this.model.findById(id);
-    //     if (!user) {
-    //         throw new NotFound(msg.userNotFound);
-    //     }
-    //     user.artworks.push(artwork);
-    //     return await user.save();
-    // }
+    async checkForAdmin() {
+        const anAdmin = await this.model.findOne({ role: 'admin' });
+        if (!anAdmin) {
+            throw new ValidationError(msg.adminAlreadyExists);
+        }
+        return true;
+    }
 
-    // async addExhibition({ id, exhibition }) {
-    //     const user = await this.model.findById(id);
-    //     if (!user) {
-    //         throw new NotFound(msg.userNotFound);
-    //     }
-    //     user.exhibitions.push(exhibition);
-    //     return await user.save();
-    // }
+    async addArtwork({ id, artwork }) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        user.artworks.push(artwork);
+        return await user.save();
+    }
+
+    async addExhibition({ id, exhibition }) {
+        const user = await this.model.findById(id);
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        user.exhibitions.push(exhibition);
+        return await user.save();
+    }
 }

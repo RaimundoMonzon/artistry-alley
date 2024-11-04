@@ -49,6 +49,4 @@ Server: Mount routes in server.js with app.use('/api/users', userRoutes);.
 
 POR HACER
 1. Vercel
-2. Rutas complejas para el Frontend
 3. Documentar en Postman (En Progreso)
-4. Controllers/Payment -> TranmsactionAmount no se pasa correctamente.
