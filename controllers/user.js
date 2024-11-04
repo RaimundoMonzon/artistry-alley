@@ -39,8 +39,20 @@ export class UserController {
         res.status(200).json({ message: msg.deleteUserSuccess });
     }
 
+    static async addArtworkToUser(req, res) {
+        const artwork = await artworkService.getById({ id: req.params.artworkId });
+        const user = await userService.addArtwork({ id: req.params.userId, artwork: artwork });
+        res.status(200).json(user);
+    }
+
     static async removeArtworkFromUser(req, res) {
         const user = await userService.removeArtwork({ id: req.params.userId, artworkId: req.params.artworkId });
+        res.status(200).json(user);
+    }
+
+    static async addExhibitionToUser(req, res) {
+        const exhibition = await exhibitionService.getById({ id: req.params.exhibitionId });
+        const user = await userService.addExhibition({ id: req.params.userId, exhibition: exhibition });
         res.status(200).json(user);
     }
 
@@ -63,16 +75,4 @@ export class UserController {
         const user = await userService.getById(req.params.userId);
         res.status(200).json(user.exhibitions);
     }
-
-    // static async addArtworkToUser(req, res) {
-    //     const artwork = await artworkService.getById({ id: req.params.artworkId });
-    //     const user = await userService.addArtwork({ id: req.params.userId, artwork: artwork });
-    //     res.status(200).json(user);
-    // }
-
-    // static async addExhibitionToUser(req, res) {
-    //     const exhibition = await exhibitionService.getById({ id: req.params.exhibitionId });
-    //     const user = await userService.addExhibition({ id: req.params.userId, exhibition: exhibition });
-    //     res.status(200).json(user);
-    // }
 }

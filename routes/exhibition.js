@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ExhibitionController } from "../controllers/exhibition.js";
 import asyncHandler from "express-async-handler";
-import { validateAdmin, validateToken } from "../middlewares/validations.js";
+import { validateAdmin, validateToken, validateExhibitionOwnership } from "../middlewares/validations.js";
 
 const router = Router();
 
@@ -12,12 +12,12 @@ router.get("/", [validateToken, validateAdmin], asyncHandler(ExhibitionControlle
 router.get("/:id", [validateToken, validateAdmin], asyncHandler(ExhibitionController.getExhibitionById));
 
 // Crear una Exposición.
-router.post("/", [validateToken, validateAdmin], asyncHandler(ExhibitionController.createExhibition));
+router.post("/", [validateToken], asyncHandler(ExhibitionController.createExhibition));
 
 // Actualizar una Exposición.
-router.put("/:id", [validateToken, validateAdmin], asyncHandler(ExhibitionController.updateExhibition));
+router.put("/:id", [validateToken, validateExhibitionOwnership], asyncHandler(ExhibitionController.updateExhibition));
 
 // Eliminar una Exposición.
-router.delete("/:id", [validateToken, validateAdmin], asyncHandler(ExhibitionController.deleteExhibition));
+router.delete("/:id", [validateToken, validateExhibitionOwnership], asyncHandler(ExhibitionController.deleteExhibition));
 
 export default router;
