@@ -37,7 +37,7 @@ class Server {
             saveUninitialized: false,
             rolling: true, // Reinicia el tiempo de caducidad de la cookie con cada petición.
             cookie: { 
-                maxAge: CART_TIMEOUT * 10000, // Tiempo de caducidad de la cookie en milisegundos. IMPLEMENTAR CART_TIMEOUT
+                maxAge: 100000000, // Tiempo de caducidad de la cookie en milisegundos. IMPLEMENTAR CART_TIMEOUT
                 secure: false // Solo se puede acceder a través de HTTPS.
             }
         }));
