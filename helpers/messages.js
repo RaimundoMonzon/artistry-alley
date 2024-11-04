@@ -17,6 +17,7 @@ const messages = {
       userNotFound: "Usuario no encontrado",
       userAlreadyExists: "El usuario ya existe",
       invalidEmail: "Correo no valido",
+      failedToGenerateToken: "No se pudo generar el token",
 
       // Mensajes bonitos para los Artwork.
       deleteArtworkSuccess: "Obra incinerada.",

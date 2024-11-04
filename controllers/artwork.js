@@ -1,7 +1,10 @@
 import { ArtworkService } from "../services/artwork.js";
 import { messagesByLang as msg } from "../helpers/messages.js";
+import { UserService } from "../services/user.js";
+import { CategoryService } from "../services/category.js";
 
 const artworkService = new ArtworkService();
+const userService = new UserService();
 
 export class ArtworkController {
 
@@ -18,9 +21,10 @@ export class ArtworkController {
     }
 
     // Crear un artwork.
-    static async createArtwork(req, res) {
+    static async createArtwork(req, res) {        
         const artwork = await artworkService.create({ input: req.body });
-        res.status(201).json(artwork);
+        const savedArtwork = userService.addArtwork({ id: req.user.id, artwork: artwork });
+        res.status(201).json(savedArtwork);
     }
 
     // Actualizar un artwork.

@@ -17,8 +17,6 @@ export class UserService {
     // Obtiene un usuario por su ID y populatiza el objeto con sus artworks y exhibitions.
     async getById(id) {
         const user = await this.model.findById(id)
-            .populate("artworks")
-            .populate("exhibitions")
 
         if (!user) {
             throw new NotFound(msg.userNotFound);
@@ -82,30 +80,12 @@ export class UserService {
         return user.email;
     }
 
-    async addArtwork({ id, artwork }) {
-        const user = await this.model.findById(id);
-        if (!user) {
-            throw new NotFound(msg.userNotFound);
-        }
-        user.artworks.push(artwork);
-        return await user.save();
-    }
-
     async removeArtwork({ id, artworkId }) {
         const user = await this.model.findById(id);
         if (!user) {
             throw new NotFound(msg.userNotFound);
         }
         user.artworks = user.artworks.filter(artwork => artwork._id !== artworkId);
-        return await user.save();
-    }
-
-    async addExhibition({ id, exhibition }) {
-        const user = await this.model.findById(id);
-        if (!user) {
-            throw new NotFound(msg.userNotFound);
-        }
-        user.exhibitions.push(exhibition);
         return await user.save();
     }
 
@@ -117,4 +97,31 @@ export class UserService {
         user.exhibitions = user.exhibitions.filter(exhibition => exhibition._id !== exhibitionId);
         return await user.save();
     }
+
+    async getProfile(id) {
+        const user = await this.model.findById(id).select('-artworks -exhibitions');
+
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        return user;
+    }
+
+    // async addArtwork({ id, artwork }) {
+    //     const user = await this.model.findById(id);
+    //     if (!user) {
+    //         throw new NotFound(msg.userNotFound);
+    //     }
+    //     user.artworks.push(artwork);
+    //     return await user.save();
+    // }
+
+    // async addExhibition({ id, exhibition }) {
+    //     const user = await this.model.findById(id);
+    //     if (!user) {
+    //         throw new NotFound(msg.userNotFound);
+    //     }
+    //     user.exhibitions.push(exhibition);
+    //     return await user.save();
+    // }
 }

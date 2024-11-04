@@ -85,8 +85,21 @@ artworkSchema.post("findOneAndUpdate", async function (doc) {
           "artworks.$.categories": doc.categories,
           "artworks.$.forSale": doc.forSale,
           "artworks.$.price": doc.price,
-          "artworks.$.stock": doc.stock,          
+          "artworks.$.stock": doc.stock,
         },
+      }
+    );
+  }
+});
+
+artworkSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await mongoose.model("User").updateOne(
+      { "artworks._id": doc._id },
+      {
+        $pull: {
+          artworks: { _id: doc._id }
+        }
       }
     );
   }

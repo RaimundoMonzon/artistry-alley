@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import { SECRETKEY, TOKEN_TIMEOUT, CART_TIMEOUT } from "./config.js";
+import { SECRETKEY, TOKEN_TIMEOUT } from "./config.js";
+import { messagesByLang as msg } from "./messages.js";
 
 export const generateJWT = (user) => {
 
@@ -12,25 +13,7 @@ export const generateJWT = (user) => {
 
         jwt.sign(payload, SECRETKEY, { expiresIn: TOKEN_TIMEOUT }, (err, token) => {
             if (err) {
-                reject('No se pudo generar el token')
-            } else {
-                resolve(token);
-            }
-        })
-
-    })
-}
-
-export const generateCartToken = (cart) => {
-
-    return new Promise((resolve, reject) => {
-
-        const payload = {
-            id: cart._id
-        }
-        jwt.sign(payload, SECRETKEY, { expiresIn: CART_TIMEOUT }, (err, token) => {
-            if (err) {
-                reject('No se pudo generar el token del Carrito.')
+                reject(msg.failedToGenerateToken);
             } else {
                 resolve(token);
             }

@@ -5,31 +5,38 @@ import asyncHandler from "express-async-handler";
 
 const router = Router();
 
-// Obtener todos los usuarios.
-router.get('/', [validateToken], asyncHandler(UserController.getAllUsers));
+// Obtener los artworks de un usuario.
+router.get('/:userId/artworks', asyncHandler(UserController.getUserArtworks));
 
-// Obtener un usuario.
-router.get('/:userId', [validateToken], asyncHandler(UserController.getUser));
+// Obtener los exhibitions de un usuario.
+router.get('/:userId/exhibitions', asyncHandler(UserController.getUserExhibitions));
 
-// Crear un usuario.
-router.post('/', [validateToken], asyncHandler(UserController.createUser));
-
-// Actualizar un usuario.
-router.put('/:userId', [validateToken], asyncHandler(UserController.updateUser));
-
-// Eliminar un usuario.
-router.delete('/:userId', [validateToken], asyncHandler(UserController.deleteUser));
-
-// Agregar artwork a un usuario.
-router.post('/:userId/artworks/:artworkId', [validateToken], asyncHandler(UserController.addArtworkToUser));
+// Perfil del un usuario.
+router.get('/profile', [validateToken], asyncHandler(UserController.getUserProfile));
 
 // Eliminar artwork de un usuario.
-router.delete('/:userId/artworks/:artworkId', [validateToken], asyncHandler(UserController.removeArtworkFromUser));
-
-// Agregar exhibition a un usuario.
-router.post('/:userId/exhibitions/:exhibitionId', [validateToken], asyncHandler(UserController.addExhibitionToUser));
+router.delete('/:userId/artworks/:artworkId', [validateToken, validateAdmin], asyncHandler(UserController.removeArtworkFromUser));
 
 // Eliminar exhibition de un usuario.
-router.delete('/:userId/exhibitions/:exhibitionId', [validateToken], asyncHandler(UserController.removeExhibitionFromUser));
+router.delete('/:userId/exhibitions/:exhibitionId', [validateToken, validateAdmin], asyncHandler(UserController.removeExhibitionFromUser));
+
+// Obtener todos los usuarios.
+router.get('/', [validateToken, validateAdmin], asyncHandler(UserController.getAllUsers));
+
+// Obtener un usuario.
+router.get('/:userId', [validateToken, validateAdmin], asyncHandler(UserController.getUser));
+
+// Crear un usuario.
+router.post('/', [validateToken, validateAdmin], asyncHandler(UserController.createUser));
+
+// Actualizar un usuario.
+router.put('/:userId', [validateToken, validateAdmin], asyncHandler(UserController.updateUser));
+
+// Eliminar un usuario.
+router.delete('/:userId', [validateToken, validateAdmin], asyncHandler(UserController.deleteUser));
+
+// Agregar artwork a un usuario. router.post('/:userId/artworks/:artworkId', [validateToken, validateAdmin], asyncHandler(UserController.addArtworkToUser));
+
+// Agregar exhibition a un usuario. router.post('/:userId/exhibitions/:exhibitionId', [validateToken, validateAdmin], asyncHandler(UserController.addExhibitionToUser));
 
 export default router;
