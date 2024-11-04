@@ -9,6 +9,7 @@ npm i @sendgrid/mail -> email Delivery Service
 npm i express-async-handler -> async handler removes the need for callbacks and makes the code more readable
 npm i express-session -> session management for carts
 npm i mercadopago -> payment gateway
+npm i uuid -> generate UUIDs para la IdempotencyKey de MercadoPago.
 
 Steps to Add Content to the API
 1. Define the Schema
@@ -47,5 +48,7 @@ Server: Mount routes in server.js with app.use('/api/users', userRoutes);.
 
 
 POR HACER
-1. Implementar Cart Timeout linea 40 Server.js
-2.
+1. Vercel
+2. Rutas complejas para el Frontend
+3. Documentar en Postman (En Progreso)
+4. Controllers/Payment -> TranmsactionAmount no se pasa correctamente.
