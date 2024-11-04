@@ -4,6 +4,8 @@ import asyncHandler from "express-async-handler";
 
 const router = Router();
 
+// ALL PUBLIC
+
 // Crear un carrito.
 router.post('/', asyncHandler(CartController.createCart));
 

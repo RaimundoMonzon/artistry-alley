@@ -75,4 +75,9 @@ export class UserController {
         const user = await userService.getById(req.params.userId);
         res.status(200).json(user.exhibitions);
     }
+
+    static async updateUserProfile(req, res) {
+        const user = await userService.update({ id: req.user.id, input: req.body });
+        res.status(200).json(user);
+    }
 }

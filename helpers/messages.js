@@ -7,6 +7,7 @@ const messages = {
       loginSuccess: "¡Buenos dias estrellita! ¡El mundo te dice hola!", // ¡Bienvenido! ¡Has iniciado sesión!
       registerSuccess: "¡Bienvenido! ¡Has registrado!",
       deleteUserSuccess: "¡Hasta la vista baby!",
+      logoutSuccess: "¡Nos vemos pronto!",
 
       // Mensajes de Error de Usuario
       invalidCredentials: "Usuario o Contraseña no validos",

@@ -5,11 +5,7 @@ import { validateToken, validateAdmin, validateArtworkOwnership } from "../middl
 
 const router = Router();
 
-// Obtener todos los artworks.
-router.get('/', [validateToken, validateAdmin], asyncHandler(ArtworkController.getAllArtworks));
-
-// Obtener un artwork.
-router.get('/:id', [validateToken, validateAdmin], asyncHandler(ArtworkController.getArtwork));
+// ALL USERS
 
 // Crear un artwork.
 router.post('/', [validateToken], asyncHandler(ArtworkController.createArtwork));
@@ -19,5 +15,13 @@ router.put('/:id', [validateToken, validateArtworkOwnership], asyncHandler(Artwo
 
 // Eliminar un artwork.
 router.delete('/:id', [validateToken, validateArtworkOwnership], asyncHandler(ArtworkController.deleteArtwork));
+
+// ADMIN ONLY
+
+// Obtener todos los artworks.
+router.get('/', [validateToken, validateAdmin], asyncHandler(ArtworkController.getAllArtworks));
+
+// Obtener un artwork.
+router.get('/:id', [validateToken, validateAdmin], asyncHandler(ArtworkController.getArtwork));
 
 export default router;
