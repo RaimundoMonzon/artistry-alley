@@ -19,7 +19,7 @@ export class ExhibitionController {
 
     static async createExhibition(req, res) {
         const exhibition = await exhibitionService.create({ input: req.body });
-        const savedExhibition = userService.addExhibition({ id: req.user.id, exhibition: exhibition });
+        const savedExhibition = await userService.addExhibition({ id: req.user.id, exhibition: exhibition });
         res.status(201).json(savedExhibition);
     }
 

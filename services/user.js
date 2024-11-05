@@ -109,10 +109,10 @@ export class UserService {
 
     async checkForAdmin() {
         const anAdmin = await this.model.findOne({ role: 'admin' });
-        if (!anAdmin) {
-            throw new ValidationError(msg.adminAlreadyExists);
+        if (anAdmin) {
+            return true;
         }
-        return true;
+        throw new ValidationError(msg.adminAlreadyExists);
     }
 
     async addArtwork({ id, artwork }) {
@@ -130,6 +130,25 @@ export class UserService {
             throw new NotFound(msg.userNotFound);
         }
         user.exhibitions.push(exhibition);
-        return await user.save();
+        await user.save();
+        return exhibition;
+    }
+
+    async patch({ id, input }) {
+
+        if (input.password < 6 || input.passwordConfirmation.length < 6) { throw new ValidationError(msg.minLength(6)); }
+
+        if (input.password === input.passwordConfirmation) {
+            input.password = await bcrypt.hash(input.password, 10);
+            delete input.passwordConfirmation;
+        } else {
+            throw new ValidationError(msg.passwordsDoNotMatch);
+        }
+
+        const user = await this.model.findByIdAndUpdate(id, input, { new: true }).select('-artworks -exhibitions');
+        if (!user) {
+            throw new NotFound(msg.userNotFound);
+        }
+        return user;
     }
 }

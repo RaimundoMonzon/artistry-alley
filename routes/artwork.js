@@ -18,6 +18,9 @@ router.delete('/:id', [validateToken, validateArtworkOwnership], asyncHandler(Ar
 
 // ADMIN ONLY
 
+// Eliminar un artwork.
+router.delete('/admin/:id', [validateToken, validateAdmin], asyncHandler(ArtworkController.deleteArtwork));
+
 // Obtener todos los artworks.
 router.get('/', [validateToken, validateAdmin], asyncHandler(ArtworkController.getAllArtworks));
 

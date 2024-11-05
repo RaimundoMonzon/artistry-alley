@@ -61,7 +61,7 @@ const userSchema = new mongoose.Schema(
         date: { type: Date, required: true },
         featuredArtworks: [
           {
-            name: { type: String, required: true },
+            title: { type: String, required: true },
             image: { type: String, required: true },
           },
         ],

@@ -7,7 +7,8 @@ export class AuthController {
 
     // Registrar un usuario.
     static async registerUser(req, res) {
-        if (!userService.checkForAdmin()) {
+        const isThereAnAdmin = await userService.checkForAdmin();
+        if (!isThereAnAdmin) {
             const user = await userService.registerUser({ input: req.body });
             res.status(201).json({ message: msg.registerSuccess, user });
         }

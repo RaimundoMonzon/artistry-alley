@@ -21,7 +21,7 @@ export class ArtworkController {
     }
 
     // Crear un artwork.
-    static async createArtwork(req, res) {        
+    static async createArtwork(req, res) {
         const artwork = await artworkService.create({ input: req.body });
         const savedArtwork = userService.addArtwork({ id: req.user.id, artwork: artwork });
         res.status(201).json(savedArtwork);
@@ -35,7 +35,7 @@ export class ArtworkController {
 
     // Eliminar un artwork.
     static async deleteArtwork(req, res) {
-        await artworkService.delete({ id: req.params.id });
+        await artworkService.delete(req.params.id);
         res.status(200).json({ message: msg.deleteArtworkSuccess });
     }
 }

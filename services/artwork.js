@@ -37,7 +37,7 @@ export class ArtworkService {
     return artwork;
   }
 
-  async delete({ id }) {
+  async delete(id) {
     const artwork = await this.model.findByIdAndDelete(id);
     if (!artwork) {
       throw new NotFound(msg.artworkNotFound);

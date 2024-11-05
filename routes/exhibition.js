@@ -18,6 +18,9 @@ router.delete("/:id", [validateToken, validateExhibitionOwnership], asyncHandler
 
 // ADMIN ONLY
 
+// Eliminar una Exposición.
+router.delete("/admin/:id", [validateToken, validateAdmin], asyncHandler(ExhibitionController.deleteExhibition));
+
 // Obtener todas las Exposiciones.
 router.get("/", [validateToken, validateAdmin], asyncHandler(ExhibitionController.getAllExhibitions));
 

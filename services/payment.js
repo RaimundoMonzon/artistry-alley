@@ -49,7 +49,7 @@ export class PaymentService {
                 },
                 payment_method_id: reqBody.payment_method_id, // ID del método de pago. Por ejemplo, master o visa.
                 token: token, // Token de la tarjeta, generado a partir de la tarjeta.
-                transaction_amount: totalPrice // El total de la compra.
+                transaction_amount: parseInt(totalPrice) // El total de la compra.
             },
             requestOptions: { idempotencyKey: uuidv4() } // Generar UUID para cada petición.
         })

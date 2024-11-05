@@ -77,7 +77,13 @@ export class UserController {
     }
 
     static async updateUserProfile(req, res) {
-        const user = await userService.update({ id: req.user.id, input: req.body });
+        const input = {
+            username : req.body.username,
+            email : req.body.email,
+            password : req.body.password,
+            passwordConfirmation : req.body.passwordConfirmation,
+        };
+        const user = await userService.patch({ id: req.user.id, input: input });
         res.status(200).json(user);
     }
 }

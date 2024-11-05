@@ -36,9 +36,6 @@ const exhibitionSchema = new mongoose.Schema(
           required: true,
         },
         title: String,
-        category: String,
-        price: Number,
-        forSale: Boolean,
         image: String,
       },
     ],
@@ -62,6 +59,19 @@ exhibitionSchema.post("findOneAndUpdate", async function (doc) {
           "exhibitions.$.date": doc.date,
           "exhibitions.$.featuredArtworks": doc.featuredArtworks,
         },
+      }
+    );
+  }
+});
+
+exhibitionSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await mongoose.model("User").updateOne(
+      { "exhibitions._id": doc._id },
+      {
+        $pull: {
+          exhibitions: { _id: doc._id }
+        }
       }
     );
   }

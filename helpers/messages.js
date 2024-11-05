@@ -20,6 +20,7 @@ const messages = {
       invalidEmail: "Correo no valido",
       failedToGenerateToken: "No se pudo generar el token",
       adminAlreadyExists: "Ya existe un admin, para crear otro, pongase en contacto con el desarrollador.",
+      passwordsDoNotMatch: "Las contraseñas no coinciden",
 
       // Mensajes bonitos para los Artwork.
       deleteArtworkSuccess: "Obra incinerada.",
