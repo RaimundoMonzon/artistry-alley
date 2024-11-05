@@ -1,15 +1,6 @@
-# portfolio-web
-Portfolio web enfocado a ilustraciones/animaciones | Programación 3 - 3.609 UTN-INSPT
-npm install mongoose
-npm install mongodb
-npm install express
-npm i bcrypt -> password encryption
-npm i jsonwebtoken -> token authentication
-npm i @sendgrid/mail -> email Delivery Service 
-npm i express-async-handler -> async handler removes the need for callbacks and makes the code more readable
-npm i express-session -> session management for carts
-npm i mercadopago -> payment gateway
-npm i uuid -> generate UUIDs para la IdempotencyKey de MercadoPago.
+# Artistry-Alley
+Web portfolio and art commerce API developed by Raimundo Monzon and Guillermo Iribarne as a project for UTN-INSPT.
+Link to the official postman documentation: https://documenter.getpostman.com/view/39313892/2sAY4ydLKq
 
 Steps to Add Content to the API
 1. Define the Schema
@@ -47,6 +38,5 @@ Server: Mount routes in server.js with app.use('/api/users', userRoutes);.
 
 
 
-POR HACER
-1. Vercel
-3. Documentar en Postman (En Progreso)
+To-do list:
+1. Vercel.app integration
