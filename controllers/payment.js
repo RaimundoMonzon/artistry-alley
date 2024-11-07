@@ -6,7 +6,7 @@ const cartService = new CartService();
 
 export class PaymentController {
 
-    static async createPayment(req, res) {
+    static async processPayment(req, res) {
         const cart = await cartService.getCart(req.session);
 
         const items = cart.items.map(item => ({
@@ -20,6 +20,11 @@ export class PaymentController {
         }));
         
         const paymentResponse = await paymentService.createPayment(items, cart.totalPrice, req.body);
+        
+        // if(paymentResponse.status === 'authorized') {
+        //     cartService.extendCartExpiration(req.session);
+        //     req.session.cart = null;
+        // }
 
         res.status(200).json(paymentResponse);
     }

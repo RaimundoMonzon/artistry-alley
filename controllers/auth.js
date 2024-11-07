@@ -7,10 +7,9 @@ export class AuthController {
 
     // Registrar un usuario.
     static async registerUser(req, res) {
-        console.log(req.body.rol)
         const isThereAnAdmin = await userService.checkForAdmin();
-        if (!isThereAnAdmin || req.body.rol !== 'user') {
-            const user = await userService.registerUser({ input: req.body }); 
+        if (!isThereAnAdmin || req.body.rol === 'user') {
+            const user = await userService.registerUser({ input: req.body });
             res.status(201).json({ message: msg.registerSuccess, user });
         }
     }

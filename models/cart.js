@@ -27,4 +27,17 @@ const cartSchema = new mongoose.Schema(
 
 cartSchema.index({ expireAt: 1 });
 
+cartSchema.post("findOneAndUpdate", async function (doc) {
+  if (doc) {
+    const bulkOperations = doc.items.map((item) => ({
+      updateOne: {
+        filter: { "artworks._id": item._id },
+        update: { $inc: { "artworks.$.stock": -item.quantity } },
+      },
+    }));
+
+    await mongoose.model("User").bulkWrite(bulkOperations);
+  }
+});
+
 export const Cart = mongoose.model("Cart", cartSchema);

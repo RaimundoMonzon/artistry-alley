@@ -108,10 +108,8 @@ export class UserService {
     }
 
     async checkForAdmin() {
-        const anAdmin = await this.model.findOne({ role: 'admin' });
-        if (anAdmin) {
-            return true;
-        }
+        const anAdmin = await this.model.findOne({ rol: 'admin' });
+        if (anAdmin) { return true; }
         throw new ValidationError(msg.adminAlreadyExists);
     }
 

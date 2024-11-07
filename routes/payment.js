@@ -5,6 +5,6 @@ import asyncHandler from "express-async-handler";
 const router = Router();
 
 // PUBLIC
-router.post('/createPayment', asyncHandler(PaymentController.createPayment));
+router.post('/processPayment', asyncHandler(PaymentController.processPayment));
 
 export default router;

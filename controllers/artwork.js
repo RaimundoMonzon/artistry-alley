@@ -24,7 +24,7 @@ export class ArtworkController {
     static async createArtwork(req, res) {
         const artwork = await artworkService.create({ input: req.body });
         const savedArtwork = userService.addArtwork({ id: req.user.id, artwork: artwork });
-        res.status(201).json(savedArtwork);
+        res.status(201).json(artwork);
     }
 
     // Actualizar un artwork.

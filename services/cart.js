@@ -1,6 +1,7 @@
 import { Cart } from "../models/cart.js";
 import { NotFound, ValidationError } from "../helpers/errorHandler.js";
 import { messagesByLang as msg } from "../helpers/messages.js";
+import { SAVED_CART_TIMEOUT } from "../helpers/config.js";
 
 export class CartService {
     constructor() {
@@ -21,7 +22,9 @@ export class CartService {
 
     async createCart(session) {
         if (!session.cart) {
-            session.cart = new this.model({ items: [], totalPrice: 0 });
+            const cart = new this.model({ items: [], totalPrice: 0 });
+            cart.save();
+            session.cart = cart;
         }
         return session.cart;
     }
@@ -83,5 +86,14 @@ export class CartService {
         );
 
         return session.cart;
+    }
+
+    async extendCartExpiration(session) {
+        await this.model.findOneAndUpdate(
+            { _id: session.cart._id },
+            {
+                $set: { expireAt: Date.now() + SAVED_CART_TIMEOUT }
+            }
+        );
     }
 }

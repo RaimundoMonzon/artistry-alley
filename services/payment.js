@@ -41,10 +41,10 @@ export class PaymentService {
                 payer: {
                     entity_type: 'individual',
                     type: 'customer',
-                    email: reqBody.email,
+                    email: reqBody.email, // E-mail del comprador.
                     identification: {
-                        type: reqBody.cardInfo.cardholder.identification.type,
-                        number: reqBody.cardInfo.cardholder.identification.number
+                        type: reqBody.cardInfo.cardholder.identification.type, // DNI, Pasaporte, etc.
+                        number: reqBody.cardInfo.cardholder.identification.number // Numero de identificación.
                     }
                 },
                 payment_method_id: reqBody.payment_method_id, // ID del método de pago. Por ejemplo, master o visa.
