@@ -18,6 +18,7 @@ const messages = {
       userNotFound: "Usuario no encontrado",
       userAlreadyExists: "El usuario ya existe",
       invalidEmail: "Correo no valido",
+      emailAlreadyExists: "El correo ya esta en uso",
       failedToGenerateToken: "No se pudo generar el token",
       adminAlreadyExists: "Ya existe un admin, para crear otro, pongase en contacto con el desarrollador.",
       passwordsDoNotMatch: "Las contraseñas no coinciden",

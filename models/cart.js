@@ -25,8 +25,6 @@ const cartSchema = new mongoose.Schema(
   }
 );
 
-cartSchema.index({ expireAt: 1 });
-
 cartSchema.post("findOneAndUpdate", async function (doc) {
   if (doc) {
     const bulkOperations = doc.items.map((item) => ({

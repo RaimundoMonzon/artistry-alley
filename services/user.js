@@ -50,6 +50,10 @@ export class UserService {
         if (existingUser) {
             throw new ValidationError(msg.userAlreadyExists);
         }
+        const existingemail = await this.model.findOne({ email: input.email });
+        if (existingemail) {
+            throw new ValidationError(msg.emailAlreadyExists);
+        }
         // Crear el usuario.
         const newUser = new this.model(input);
         // Guardar el usuario, y retornar el objeto. Si hay un error, lanzar una excepción.
@@ -109,8 +113,8 @@ export class UserService {
 
     async checkForAdmin() {
         const anAdmin = await this.model.findOne({ rol: 'admin' });
-        if (anAdmin) { return true; }
-        throw new ValidationError(msg.adminAlreadyExists);
+        if (anAdmin) { throw new ValidationError(msg.adminAlreadyExists); }
+        return false;
     }
 
     async addArtwork({ id, artwork }) {
