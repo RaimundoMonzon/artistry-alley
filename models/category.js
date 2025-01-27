@@ -26,7 +26,7 @@ const categorySchema = new mongoose.Schema(
 );
 
 // Actualiza las Categorias del Artwork.
-categorySchema.post("findOneAndUpdate", async function (doc) {
+categorySchema.post("findByIdAndUpdate", async function (doc) {
   if (doc) {
     await mongoose.model("Artwork").updateMany(
       { "categories._id": doc._id },
@@ -42,7 +42,7 @@ categorySchema.post("findOneAndUpdate", async function (doc) {
 });
 
 // Elimina la Categoria del Artwork.
-categorySchema.post("findOneAndDelete", async function (doc) {
+categorySchema.post("findByIdAndDelete", async function (doc) {
   if (doc) {
     await mongoose.model("Artwork").updateMany(
       { "categories._id": doc._id },

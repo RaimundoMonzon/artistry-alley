@@ -47,7 +47,7 @@ const exhibitionSchema = new mongoose.Schema(
   }
 );
 
-exhibitionSchema.post("findOneAndUpdate", async function (doc) {
+exhibitionSchema.post("findByIdAndUpdate", async function (doc) {
   if (doc) {
     await mongoose.model("User").updateOne(
       { "exhibitions._id": doc._id },
@@ -64,7 +64,7 @@ exhibitionSchema.post("findOneAndUpdate", async function (doc) {
   }
 });
 
-exhibitionSchema.post("findOneAndDelete", async function (doc) {
+exhibitionSchema.post("findByIdAndDelete", async function (doc) {
   if (doc) {
     await mongoose.model("User").updateOne(
       { "exhibitions._id": doc._id },

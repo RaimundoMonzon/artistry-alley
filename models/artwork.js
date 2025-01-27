@@ -38,8 +38,8 @@ const artworkSchema = new mongoose.Schema(
     },
     stock: {
       type: Number,
-      min: [1, msg.minLength(1)],
-      default: 1,
+      min: [0, msg.minLength(0)],
+      default: 0,
       validate: {
         validator: function (value) {
           return (
@@ -74,7 +74,7 @@ const artworkSchema = new mongoose.Schema(
 );
 
 // Actualiza el User con el Artwork actualizado.
-artworkSchema.post("findOneAndUpdate", async function (doc) {
+artworkSchema.post("findByIdAndUpdate", async function (doc) {
   if (doc) {
     await mongoose.model("User").updateOne(
       { "artworks._id": doc._id },
@@ -94,7 +94,7 @@ artworkSchema.post("findOneAndUpdate", async function (doc) {
 });
 
 // Elimina el Artwork del User.
-artworkSchema.post("findOneAndDelete", async function (doc) {
+artworkSchema.post("findByIdAndDelete", async function (doc) {
   if (doc) {
     await mongoose.model("User").updateOne(
       { "artworks._id": doc._id },
@@ -109,7 +109,7 @@ artworkSchema.post("findOneAndDelete", async function (doc) {
 
 
 // Actualiza la Exhibition con el Artwork actualizado.
-artworkSchema.post("findOneAndUpdate", async function (doc) {
+artworkSchema.post("findByIdAndUpdate", async function (doc) {
   if (doc) {
     await mongoose.model("Exhibition").updateMany(
       { "featuredArtworks._id": doc._id },
@@ -125,7 +125,7 @@ artworkSchema.post("findOneAndUpdate", async function (doc) {
 });
 
 // Elimina el Artwork de la Exhibition.
-artworkSchema.post("findOneAndDelete", async function (doc) {
+artworkSchema.post("findByIdAndDelete", async function (doc) {
   if (doc) {
     await mongoose.model("Exhibition").updateMany(
       { "featuredArtworks._id": doc._id },

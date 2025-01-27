@@ -1,7 +1,6 @@
 import { ArtworkService } from "../services/artwork.js";
 import { messagesByLang as msg } from "../helpers/messages.js";
 import { UserService } from "../services/user.js";
-import { CategoryService } from "../services/category.js";
 
 const artworkService = new ArtworkService();
 const userService = new UserService();

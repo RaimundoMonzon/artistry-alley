@@ -20,7 +20,7 @@ export class PaymentService {
     async createPayment(items, totalPrice, reqBody) {
 
         const token = await this.generateCardToken(reqBody.cardInfo);
-        console.log("CARD_TOKEN: ", token);
+        // console.log("CARD_TOKEN: ", token);
 
         const paymentInfo = {
             body: {
@@ -52,10 +52,10 @@ export class PaymentService {
             requestOptions: { idempotencyKey: uuidv4() } // Generar UUID para cada petición.
         };
 
-        console.log("PAYMENT INFO: ", paymentInfo);
+        // console.log("PAYMENT INFO: ", paymentInfo);
         return await this.payment.create(paymentInfo)
-            .then(result => console.log("PAYMENT RESULT: ", result))
-            .catch(error => console.error("PAYMENT ERROR: ", error));
+            //.then(result => console.log("PAYMENT RESULT: ", result))
+            //.catch(error => console.error("PAYMENT ERROR: ", error));
     }
 
     async generateCardToken(card) {

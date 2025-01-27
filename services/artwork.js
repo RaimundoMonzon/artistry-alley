@@ -43,4 +43,8 @@ export class ArtworkService {
       throw new NotFound(msg.artworkNotFound);
     }
   }
+
+  async updateArtworksStock(items) {
+    return Promise.all(items.map((item) => this.update({ id: item._id, input: { $inc: { stock: -item.quantity } } })));
+  }
 }
