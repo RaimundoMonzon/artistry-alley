@@ -12,6 +12,7 @@ import receiptRoutes from "./routes/receipt.js";
 import { PORT, DB_USER, SECRETKEY, CART_MAXAGE } from "./helpers/config.js";
 import { handleError } from "./helpers/errorHandler.js";
 import session from "express-session";
+import helmet from "helmet";
 
 class Server {
 
@@ -42,6 +43,7 @@ class Server {
                 secure: false // Solo se puede acceder a través de HTTPS.
             }
         }));
+        this.app.use(helmet());
     }
 
     cargarRutas() {
