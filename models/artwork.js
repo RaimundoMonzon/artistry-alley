@@ -73,6 +73,7 @@ const artworkSchema = new mongoose.Schema(
   }
 );
 
+// Actualiza el User con el Artwork actualizado.
 artworkSchema.post("findOneAndUpdate", async function (doc) {
   if (doc) {
     await mongoose.model("User").updateOne(
@@ -92,6 +93,7 @@ artworkSchema.post("findOneAndUpdate", async function (doc) {
   }
 });
 
+// Elimina el Artwork del User.
 artworkSchema.post("findOneAndDelete", async function (doc) {
   if (doc) {
     await mongoose.model("User").updateOne(
@@ -99,6 +101,37 @@ artworkSchema.post("findOneAndDelete", async function (doc) {
       {
         $pull: {
           artworks: { _id: doc._id }
+        }
+      }
+    );
+  }
+});
+
+
+// Actualiza la Exhibition con el Artwork actualizado.
+artworkSchema.post("findOneAndUpdate", async function (doc) {
+  if (doc) {
+    await mongoose.model("Exhibition").updateMany(
+      { "featuredArtworks._id": doc._id },
+      {
+        $set: {
+          "featuredArtworks.$[elem].title": doc.title,
+          "featuredArtworks.$[elem].image": doc.image,
+        },
+      },
+      { arrayFilters: [{ "elem._id": doc._id }] }
+    );
+  }
+});
+
+// Elimina el Artwork de la Exhibition.
+artworkSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await mongoose.model("Exhibition").updateMany(
+      { "featuredArtworks._id": doc._id },
+      {
+        $pull: {
+          featuredArtworks: { _id: doc._id }
         }
       }
     );

@@ -25,4 +25,34 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
+// Actualiza las Categorias del Artwork.
+categorySchema.post("findOneAndUpdate", async function (doc) {
+  if (doc) {
+    await mongoose.model("Artwork").updateMany(
+      { "categories._id": doc._id },
+      {
+        $set: {
+          "categories.$[elem].name": doc.name,
+          "categories.$[elem].description": doc.description,
+        },
+      },
+      { arrayFilters: [{ "elem._id": doc._id }] }
+    );
+  }
+});
+
+// Elimina la Categoria del Artwork.
+categorySchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await mongoose.model("Artwork").updateMany(
+      { "categories._id": doc._id },
+      {
+        $pull: {
+          categories: { _id: doc._id }
+        }
+      }
+    );
+  }
+});
+
 export const Category = mongoose.model("Category", categorySchema);

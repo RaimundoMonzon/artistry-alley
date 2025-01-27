@@ -5,6 +5,5 @@ Link to the official postman documentation: https://documenter.getpostman.com/vi
 To-do list:
 1. Vercel.app integration
 2. Que el carrito mandé por mail una orden de compra al realizarse un Payment.
-3. Que el carrito se guarde en la BD al realizarse un Payment. 
-4. Que los Categories y Artworks populen sus Snapshots en las Artworks y exhibitions respectivamente.
+3. Que el carrito se guarde en la BD al realizarse un Payment.
 5. Mejorar las direcciones de las Routes.

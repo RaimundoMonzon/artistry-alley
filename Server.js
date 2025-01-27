@@ -8,6 +8,7 @@ import contactRoutes from "./routes/contact.js"; // Rutas de contacto.
 import categoryRoutes from "./routes/category.js"; // Rutas de categorias.
 import exhibitionRoutes from "./routes/exhibition.js"; // Rutas de exposiciones.
 import paymentRoutes from "./routes/payment.js";
+import receiptRoutes from "./routes/receipt.js";
 import { PORT, DB_USER, SECRETKEY, CART_MAXAGE } from "./helpers/config.js";
 import { handleError } from "./helpers/errorHandler.js";
 import session from "express-session";
@@ -53,6 +54,7 @@ class Server {
         this.app.use("/api/category", categoryRoutes);
         this.app.use("/api/exhibition", exhibitionRoutes);
         this.app.use("/api/payment", paymentRoutes);
+        this.app.use("/api/receipt", receiptRoutes);
     }
 
     loadPostMiddlewares() {

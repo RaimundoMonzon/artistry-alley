@@ -20,14 +20,11 @@ export class PaymentService {
     async createPayment(items, totalPrice, reqBody) {
 
         const token = await this.generateCardToken(reqBody.cardInfo);
+        console.log("CARD_TOKEN: ", token);
 
-        return await this.payment.create({
+        const paymentInfo = {
             body: {
-                additional_info: {
-                    items: items, // Elementos que se van a comprar.
-                    payer: reqBody.payer, // Información del comprador.
-                    shipments: reqBody.shipments, // Información de la entrega.
-                },
+                
                 application_fee: null,
                 binary_mode: false, // En false la transaccion puede devolver PENDIENTE.
                 campaign_id: null,
@@ -51,8 +48,14 @@ export class PaymentService {
                 token: token, // Token de la tarjeta, generado a partir de la tarjeta.
                 transaction_amount: parseInt(totalPrice) // El total de la compra.
             },
+
             requestOptions: { idempotencyKey: uuidv4() } // Generar UUID para cada petición.
-        })
+        };
+
+        console.log("PAYMENT INFO: ", paymentInfo);
+        return await this.payment.create(paymentInfo)
+            .then(result => console.log("PAYMENT RESULT: ", result))
+            .catch(error => console.error("PAYMENT ERROR: ", error));
     }
 
     async generateCardToken(card) {
