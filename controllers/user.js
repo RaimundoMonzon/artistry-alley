@@ -86,4 +86,10 @@ export class UserController {
         const user = await userService.patch({ id: req.user.id, input: input });
         res.status(200).json(user);
     }
+
+    static async getAllArtistsNames(req, res) {
+        const artists = await userService.getAllArtistsNames();
+        res.status(200).json(artists);
+    }
+
 }

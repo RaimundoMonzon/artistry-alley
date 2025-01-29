@@ -153,4 +153,10 @@ export class UserService {
         }
         return user;
     }
+
+    async getAllArtistsNames() {
+        const users = await this.model.find({ rol: 'user' });
+        const artistNames = users.map(user => user.username);
+        return artistNames;
+    }
 }

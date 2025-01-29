@@ -7,6 +7,9 @@ const router = Router();
 
 // PUBLIC
 
+// Obtener los nombres de los Usuarios.
+router.get('/artists', asyncHandler(UserController.getAllArtistsNames));
+
 // Obtener los artworks de un usuario.
 router.get('/:userId/artworks', asyncHandler(UserController.getUserArtworks));
 
